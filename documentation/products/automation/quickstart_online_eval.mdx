@@ -11,7 +11,7 @@ Online evals automatically runs evaluators on your production logs in real-time 
 ### 1. Create a condition
 
 A **condition** defines the filtering rules that determine which production logs will be evaluated—only logs that match the condition proceed to the sampling and evals stages.  
-Go to [Conditions](https://platform.keywordsai.co/platform/api/conditions).
+Go to [Conditions](https://platform.respan.ai/platform/api/conditions).
 
 <Frame>
 <img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/observability/automation/online-eval-condition-1.png"/>
@@ -32,7 +32,7 @@ Following is a simple condition that triggers everytime a log with status code 5
 
 ### 2. Create an automation
 
-Once your condition and [evaluator](https://docs.keywordsai.co/documentation/products/evaluation/llm-evals/llm-evaluator) are ready, navigate to [Automations](https://platform.keywordsai.co/platform/monitors) and create a new **automation**.
+Once your condition and [evaluator](https://docs.respan.ai/documentation/products/evaluation/llm-evals/llm-evaluator) are ready, navigate to [Automations](https://platform.respan.ai/platform/monitors) and create a new **automation**.
 
 <Frame>
 <img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/observability/automation/online-eval-1.png"/>
@@ -44,7 +44,7 @@ In the creation form:
 3. Choose the **evaluator** you want to run through.  
 4. Set the **Sampling rate** (range from 0 to 1).
 
-After saving, your online evals will appear in the [Automations](https://platform.keywordsai.co/platform/monitors) list.  
+After saving, your online evals will appear in the [Automations](https://platform.respan.ai/platform/monitors) list.  
 When the defined condition is met, sampling will be done and run through evaluators.  
 
 ---

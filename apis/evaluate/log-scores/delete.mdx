@@ -1,0 +1,28 @@
+---
+title: Delete log score
+api: DELETE https://api.respan.ai/api/logs/{log_id}/scores/{score_id}/
+---
+
+Removes a score from a log.
+
+<RequestExample>
+```Python Python
+import requests
+
+url = "https://api.respan.ai/api/logs/{log_id}/scores/{score_id}/"
+api_key = "YOUR_KEY" # Replace with your actual Respan API key
+headers = {
+    "Authorization": f"Bearer {api_key}",
+    "Content-Type": "application/json"
+}
+
+response = requests.delete(url, headers=headers)
+print(response.status_code)  # Should print 204 for successful deletion
+```
+</RequestExample>
+
+<ResponseExample>
+```json 204 No Content
+// No response body is returned for successful deletions.
+```
+</ResponseExample>

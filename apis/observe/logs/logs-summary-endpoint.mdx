@@ -1,0 +1,329 @@
+---
+title: Get logs summary
+api: POST https://api.respan.ai/api/request-logs/summary/
+---
+
+The Logs Summary endpoint returns aggregated statistics for logs matching the given filters. This is useful for getting quick insights into your LLM usage without fetching all individual logs.
+
+<Note>
+Both `GET` and `POST` methods are supported. `POST` is recommended when using complex filters.
+</Note>
+
+## Query parameters
+
+Same parameters as the [List Logs endpoint](/api-endpoints/observe/logs/list):
+
+<ParamField query="start_time" type="string">
+  The start time for filtering logs in ISO 8601 format. If not provided, defaults to 1 hour ago.
+  <Accordion title="Example">
+    ```json
+    {
+      "start_time": "2025-08-15T00:00:00Z"
+    }
+    ```
+  </Accordion>
+</ParamField>
+
+<ParamField query="end_time" type="string">
+  The end time for filtering logs in ISO 8601 format. If not provided, defaults to current time.
+  <Accordion title="Example">
+    ```json
+    {
+      "end_time": "2025-08-16T00:00:00Z"
+    }
+    ```
+  </Accordion>
+</ParamField>
+
+<ParamField query="all_envs" type="string" default="false">
+  Whether to include logs from all environments. `is_test` parameter will override this parameter.
+  Options: `true`, `false`.
+</ParamField>
+
+<ParamField query="is_test" type="string" default="false">
+  Whether to include test logs only. This parameter will override the `all_envs` parameter.
+  Options: `true`, `false`.
+</ParamField>
+
+## Body parameters
+
+You can add filter parameters to the request body (same as [List Logs endpoint](/api-endpoints/observe/logs/list)):
+
+<ParamField body="filters" type="object" default={{}}>
+  The filters to be applied to the logs.
+
+<Note>
+If you want to filter your custom properties, add `metadata__` + your custom property name. For example, to filter `my_custom_property`, use `metadata__my_custom_property`.
+
+For a complete list of filter operators and examples, see the [Filters API Reference](/api-endpoints/reference/filters_api_reference).
+</Note>
+
+<Accordion title="Example">
+  ```json
+    {
+      "model": {
+        "operator": "",
+        "value": ["gpt-4o"]
+      },
+      "cost": {
+        "operator": "gte",
+        "value": [0.01]
+      }
+    }
+  ```
+  </Accordion>
+</ParamField>
+
+## URL-based Filtering
+
+Just like the List Logs endpoint, you can use URL parameters for quick filtering:
+
+```bash
+# Filter summary by customer
+GET /api/request-logs/summary/?customer_identifier=user_123
+
+# Filter by custom metadata
+GET /api/request-logs/summary/?user_tier=premium&department=sales
+```
+
+See the [List Logs endpoint](/api-endpoints/observe/logs/list#url-based-filtering-quick-filters) for complete URL filtering documentation.
+
+## Response
+
+All fields are returned at the top level (consistent with experiments API format):
+
+<ResponseField name="total_cost" type="float">
+  Total cost in USD for all filtered logs.
+</ResponseField>
+
+<ResponseField name="total_tokens" type="integer">
+  Total tokens (prompt + completion) for all filtered logs.
+</ResponseField>
+
+<ResponseField name="number_of_requests" type="integer">
+  Total number of requests matching the filters.
+</ResponseField>
+
+<ResponseField name="scores" type="object">
+  Aggregated score summaries grouped by evaluator_id. Each evaluator includes:
+
+  <Expandable title="Score Summary Fields">
+    <ResponseField name="evaluator_id" type="string">
+      UUID of the evaluator
+    </ResponseField>
+
+    <ResponseField name="evaluator_slug" type="string">
+      URL-friendly identifier for the evaluator
+    </ResponseField>
+
+    <ResponseField name="evaluator_name" type="string">
+      Display name of the evaluator
+    </ResponseField>
+
+    <ResponseField name="score_value_type" type="string">
+      Type of score: `"numerical"`, `"percentage"`, or `"boolean"`
+    </ResponseField>
+
+    <ResponseField name="avg_score" type="float | null">
+      Average score for numerical/percentage evaluators. `null` for boolean evaluators.
+    </ResponseField>
+
+    <ResponseField name="true_count" type="integer | null">
+      Count of true values for boolean evaluators. `null` for numerical/percentage evaluators.
+    </ResponseField>
+
+    <ResponseField name="false_count" type="integer | null">
+      Count of false values for boolean evaluators. `null` for numerical/percentage evaluators.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<Note>
+**Score Type Behavior:**
+- **Numerical/Percentage evaluators**: Only `avg_score` is populated
+- **Boolean evaluators**: Only `true_count` and `false_count` are populated
+- **Other types**: String, categorical, and JSON evaluators are not included in aggregations
+</Note>
+
+<RequestExample>
+
+```python Python
+import requests
+
+url = "https://api.respan.ai/api/request-logs/summary/"
+headers = {
+    "Authorization": f"Bearer {YOUR_RESPAN_API_KEY}",
+    "Content-Type": "application/json"
+}
+params = {
+    "start_time": "2025-12-01T00:00:00Z",
+    "end_time": "2025-12-31T23:59:59Z"
+}
+data = {
+    "filters": {
+        "model": {
+            "operator": "",
+            "value": ["gpt-4o"]
+        }
+    }
+}
+
+response = requests.post(url, headers=headers, params=params, json=data)
+print(response.json())
+```
+
+```typescript TypeScript
+const url = 'https://api.respan.ai/api/request-logs/summary/';
+
+const params = new URLSearchParams({
+    start_time: '2025-12-01T00:00:00Z',
+    end_time: '2025-12-31T23:59:59Z'
+});
+
+const headers = {
+    'Authorization': `Bearer ${YOUR_RESPAN_API_KEY}`,
+    'Content-Type': 'application/json'
+};
+
+const data = {
+    filters: {
+        model: {
+            operator: '',
+            value: ['gpt-4o']
+        }
+    }
+};
+
+fetch(`${url}?${params}`, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
+
+```bash cURL
+curl -X POST "https://api.respan.ai/api/request-logs/summary/?start_time=2025-12-01T00:00:00Z&end_time=2025-12-31T23:59:59Z" \
+-H "Authorization: Bearer YOUR_RESPAN_API_KEY" \
+-H "Content-Type: application/json" \
+-d '{
+  "filters": {
+    "model": {
+      "operator": "",
+      "value": ["gpt-4o"]
+    }
+  }
+}'
+```
+
+```bash cURL (GET with URL filters)
+# Quick summary with URL filters
+curl -X GET "https://api.respan.ai/api/request-logs/summary/?customer_identifier=user_123&start_time=2025-12-01T00:00:00Z" \
+-H "Authorization: Bearer YOUR_RESPAN_API_KEY"
+```
+
+</RequestExample>
+
+<ResponseExample>
+```json 200 OK
+{
+  "total_cost": 15.67,
+  "total_tokens": 1250000,
+  "number_of_requests": 8453,
+  "scores": {
+    "550e8400-e29b-41d4-a716-446655440000": {
+      "evaluator_id": "550e8400-e29b-41d4-a716-446655440000",
+      "evaluator_slug": "quality_v1",
+      "evaluator_name": "Response Quality",
+      "score_value_type": "numerical",
+      "avg_score": 4.2,
+      "true_count": null,
+      "false_count": null
+    },
+    "661e9511-f3ab-52e5-b827-557766551111": {
+      "evaluator_id": "661e9511-f3ab-52e5-b827-557766551111",
+      "evaluator_slug": "accuracy_v1",
+      "evaluator_name": "Factual Accuracy",
+      "score_value_type": "boolean",
+      "avg_score": null,
+      "true_count": 150,
+      "false_count": 10
+    }
+  }
+}
+```
+</ResponseExample>
+
+## Use Cases
+
+<AccordionGroup>
+  <Accordion title="Monitor monthly costs">
+    ```python
+    # Get total cost for the current month
+    import requests
+    from datetime import datetime
+    
+    start_of_month = datetime.now().replace(day=1, hour=0, minute=0, second=0).isoformat() + "Z"
+    
+    response = requests.get(
+        "https://api.respan.ai/api/request-logs/summary/",
+        headers={"Authorization": f"Bearer {YOUR_API_KEY}"},
+        params={
+            "start_time": start_of_month,
+            "environment": "prod"
+        }
+    )
+    
+    data = response.json()
+    print(f"Monthly cost: ${data['total_cost']:.2f}")
+    print(f"Total requests: {data['number_of_requests']}")
+    
+    # Access score summaries
+    if "scores" in data:
+        for evaluator_id, score_data in data["scores"].items():
+            print(f"{score_data['evaluator_name']}: avg={score_data.get('avg_score', 'N/A')}")
+    ```
+  </Accordion>
+
+  <Accordion title="Compare model costs">
+    ```python
+    # Compare costs between different models
+    models = ["gpt-4o", "gpt-4o-mini", "claude-3-5-sonnet-20241022"]
+    
+    for model in models:
+        response = requests.post(
+            "https://api.respan.ai/api/request-logs/summary/",
+            headers={"Authorization": f"Bearer {YOUR_API_KEY}"},
+            json={
+                "filters": {
+                    "model": {
+                        "operator": "",
+                        "value": [model]
+                    }
+                }
+            }
+        )
+        data = response.json()
+        print(f"{model}: ${data['total_cost']:.2f}")
+    ```
+  </Accordion>
+
+  <Accordion title="Track customer usage">
+    ```python
+    # Get summary for a specific customer
+    response = requests.get(
+        "https://api.respan.ai/api/request-logs/summary/",
+        headers={"Authorization": f"Bearer {YOUR_API_KEY}"},
+        params={
+            "customer_identifier": "customer_123",
+            "start_time": "2025-12-01T00:00:00Z"
+        }
+    )
+    
+    data = response.json()
+    print(f"Customer cost: ${data['total_cost']:.2f}")
+    print(f"Customer requests: {data['number_of_requests']}")
+    ```
+  </Accordion>
+</AccordionGroup>

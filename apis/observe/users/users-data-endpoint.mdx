@@ -1,0 +1,92 @@
+---
+title: "List customers"
+api: "GET https://api.respan.ai/api/users/list/"
+---
+
+The Users List endpoint allows you to retrieve customers with pagination and sorting.
+
+## Authentication
+
+<Info>Use your Respan API key in `Authorization: Bearer YOUR_API_KEY`.</Info>
+
+## Query params
+You can add these params to the **URL params**.
+For example:
+```
+https://api.respan.ai/api/users/list/?page=1&page_size=50&sort_by=-first_seen&environment=prod
+```
+
+<ParamField query="page" type="number" default={1}>
+  Page number.
+</ParamField>
+
+<ParamField query="page_size" type="number" default={50}>
+  The number of customers to return per page. Maximum is 1000.
+</ParamField>
+
+<ParamField query="sort_by" type="string" default="-first_seen">
+  Sort field. Prefix with `-` for descending.
+
+  Examples: `customer_identifier`, `-total_cost`, `email`, `-number_of_requests`.
+</ParamField>
+
+<ParamField query="environment" type="string" default="prod">
+  Filter by environment. Options: `prod`, `test`.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+```python Python
+import requests
+from urllib.parse import urlencode
+
+base_url = "https://api.respan.ai/api/users/list/"
+params = {
+    "page": 1,
+    "page_size": 50,
+    "sort_by": "-first_seen",
+    "environment": "prod",
+}
+url = f"{base_url}?{urlencode(params)}"
+headers = {"Authorization": "Bearer YOUR_API_KEY"}
+
+response = requests.get(url, headers=headers)
+print(response.json())
+```
+
+```bash cURL
+curl "https://api.respan.ai/api/users/list/?page=1&page_size=50&sort_by=-first_seen&environment=prod" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+## Response
+
+<ResponseExample>
+```json
+{
+  "count": 51,
+  "next": "https://api.respan.ai/api/users/list/?page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": "user_123prod8264a3f4-40c7-476a-97d1-96908127ea21",
+      "unique_organization_id": "8264a3f4-40c7-476a-97d1-96908127ea21",
+      "customer_identifier": "user_123",
+      "environment": "prod",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "first_seen": "2025-10-15T08:00:00Z",
+      "last_active_timeframe": "2025-12-29T10:30:00Z",
+      "active_days": 75,
+      "number_of_requests": 15420,
+      "total_tokens": 170000,
+      "total_cost": 523.45,
+      "average_latency": 1.23,
+      "average_ttft": 0.45
+    }
+  ]
+}
+```
+</ResponseExample>

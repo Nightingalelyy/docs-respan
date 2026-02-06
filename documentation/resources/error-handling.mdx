@@ -2,22 +2,22 @@
 title: Error handling
 ---
 
-When making API calls to Keywords AI, you may encounter errors from two sources:
+When making API calls to Respan, you may encounter errors from two sources:
 
-1. **Keywords AI errors** - Errors thrown by the Keywords AI platform itself
+1. **Respan errors** - Errors thrown by the Respan platform itself
 2. **Provider errors** - Errors from the underlying LLM provider (e.g., OpenAI, Anthropic)
 
-## Keywords AI Exceptions
+## Respan Exceptions
 
-When Keywords AI encounters an error, it will throw a `KeywordsAIException`. The error response will include details about what went wrong.
+When Respan encounters an error, it will throw a `RespanException`. The error response will include details about what went wrong.
 
-### Common Keywords AI Error Responses
+### Common Respan Error Responses
 
 #### 401 Unauthorized
 
 ```json
 {
-  "detail": "Your API key is invalid or expired, please check your API key at https://platform.keywordsai.co/platform/api/api-keys"
+  "detail": "Your API key is invalid or expired, please check your API key at https://platform.respan.ai/platform/api/api-keys"
 }
 ```
 
@@ -60,7 +60,7 @@ When Keywords AI encounters an error, it will throw a `KeywordsAIException`. The
 
 ## Provider Exceptions
 
-When an error originates from the underlying LLM provider (e.g., OpenAI, Anthropic), Keywords AI will surface the provider's error response directly. The exception type will match the provider's exception (e.g., `OpenAIException` for OpenAI errors).
+When an error originates from the underlying LLM provider (e.g., OpenAI, Anthropic), Respan will surface the provider's error response directly. The exception type will match the provider's exception (e.g., `OpenAIException` for OpenAI errors).
 
 ### OpenAI Errors
 

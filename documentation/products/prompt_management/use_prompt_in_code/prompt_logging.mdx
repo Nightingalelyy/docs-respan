@@ -12,7 +12,7 @@ Prompt logging gives you visibility into how your prompts perform in real-world 
 
 ## Quickstart
 <Note>
-You need to first [create a prompt](/documentation/products/prompt_management/quickstart) in Keywords AI, and find the **prompt ID** in Prompts.
+You need to first [create a prompt](/documentation/products/prompt_management/quickstart) in Respan, and find the **prompt ID** in Prompts.
 </Note>
 
 <Tabs>
@@ -24,7 +24,7 @@ You don't need to pass things like token-related parameters, we'll calculate the
 ```python Python {10-15}
 import requests
 
-url = "https://api.keywordsai.co/api/request-logs/create/"
+url = "https://api.respan.ai/api/request-logs/create/"
 payload = {
     "model": "claude-3-5-sonnet-20240620",
     "completion_message": {
@@ -41,7 +41,7 @@ payload = {
     "ttft": 3.1,
 }
 headers = {
-    "Authorization": "Bearer YOUR_KEYWORDS_AI_API_KEY",
+    "Authorization": "Bearer YOUR_RESPAN_API_KEY",
     "Content-Type": "application/json"
 }
 
@@ -49,9 +49,9 @@ response = requests.request("POST", url, headers=headers, json=payload)
 ```
 
 ```typescript Typescript {13-18}
-const url = 'https://api.keywordsai.co/api/request-logs/create/';
+const url = 'https://api.respan.ai/api/request-logs/create/';
 const headers = {
-    'Authorization': 'Bearer YOUR_KEYWORDS_AI_API_KEY',
+    'Authorization': 'Bearer YOUR_RESPAN_API_KEY',
     'Content-Type': 'application/json'
 };
 
@@ -133,22 +133,22 @@ Learn how to use the **Logging API [here](/documentation/products/logs/quickstar
 </Tab>
 </Tabs>
 
-<Accordion title="Can I log variables in logs even if I haven't created a prompt in Keywords AI?">
-Yes, you can log variables in LLM logs even if you haven't created a prompt in Keywords AI. You can pass the variables in the `variables` field.
+<Accordion title="Can I log variables in logs even if I haven't created a prompt in Respan?">
+Yes, you can log variables in LLM logs even if you haven't created a prompt in Respan. You can pass the variables in the `variables` field.
 
 Check out the [tutorial here](/documentation/products/logs/log_variables).
 
 </Accordion>
 
 ### External prompt logging
-If you dont want to create any prompt in Keywords AI but you still want to log your prompts, you can pass your prompt ID in the `prompt_id` field, and set `is_custom_prompt` to `true` so the system knows it's a custom prompt.
+If you dont want to create any prompt in Respan but you still want to log your prompts, you can pass your prompt ID in the `prompt_id` field, and set `is_custom_prompt` to `true` so the system knows it's a custom prompt.
 
 **Example code**
 <CodeGroup>
 ```python Logging API Python{16-17}
 import requests
 
-url = "https://api.keywordsai.co/api/request-logs/create/"
+url = "https://api.respan.ai/api/request-logs/create/"
 payload = {
     "model": "claude-3-5-sonnet-20240620",
     "prompt_messages": [
@@ -166,7 +166,7 @@ payload = {
     "generation_time": 5.7
 }
 headers = {
-    "Authorization": "Bearer YOUR_KEYWORDS_AI_API_KEY",
+    "Authorization": "Bearer YOUR_RESPAN_API_KEY",
     "Content-Type": "application/json"
 }
 
@@ -174,9 +174,9 @@ response = requests.request("POST", url, headers=headers, json=payload)
 ```
 
 ```typescript Typescript {11-12}
-const url = 'https://api.keywordsai.co/api/request-logs/create/';
+const url = 'https://api.respan.ai/api/request-logs/create/';
 const headers = {
-    'Authorization': 'Bearer YOUR_KEYWORDS_AI_API_KEY',
+    'Authorization': 'Bearer YOUR_RESPAN_API_KEY',
     'Content-Type': 'application/json'
 };
 

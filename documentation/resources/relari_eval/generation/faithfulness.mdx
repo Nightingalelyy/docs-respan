@@ -21,13 +21,13 @@ Below is the list of deterministic metrics that measure the relationship between
 
 - **Rouge|Token Overlap|Bleu Faithfulness** is defined as the proportion of the sentences in the generated answer that can matched to the retrieved context above a `threshold`.
 
-Keywords AI defines the `threshold` as **0.5**.
+Respan defines the `threshold` as **0.5**.
 
 <img src="/images/evaluation/generation/faithfulness.png"/>
 
 ## LLM-Based metrics [(read more)](https://docs.relari.ai/metrics/Generation/LLM-Based/llm_faithfulness)
 
-Keywords AI prompts the LLM to calculate faithfulness based on classifying faithfulness by statement:
+Respan prompts the LLM to calculate faithfulness based on classifying faithfulness by statement:
 
 `classify_by_statement = TRUE` where LLM is prompted to evaluate the faithfulness of each statement in the Generated Answer and outputs a `float` score:
 
@@ -35,7 +35,7 @@ Keywords AI prompts the LLM to calculate faithfulness based on classifying faith
 
 ## Settings and parameters
 
-1. Go to Keywords AI (on top of the left nav bar) > Evaluation > Text generation > Faithfulness
+1. Go to Respan (on top of the left nav bar) > Evaluation > Text generation > Faithfulness
 <img src="/images/evaluation/generation/faithfulness-settings.png"/>
 
 2. Click on the `Faithfulness` card to create the setting:
@@ -51,7 +51,7 @@ Keywords AI prompts the LLM to calculate faithfulness based on classifying faith
 
 3. Make an API call, and the evaluation will be run based on the [`Ramdom sampling`](/documentation/products/evaluation/overview) setting.
 
-4. Check results in the [requests log](https://platform.keywordsai.co/platform/requests)
+4. Check results in the [requests log](https://platform.respan.ai/platform/requests)
 
 <img src="/images/evaluation/check-results.png" />
 

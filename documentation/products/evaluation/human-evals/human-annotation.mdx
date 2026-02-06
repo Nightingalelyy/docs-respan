@@ -53,7 +53,7 @@ positive_feedback: true, // means the user liked the output
 <Tab title="Update an existing log">
 In most cases, you will want to update an existing log with the `positive_feedback` field. In this case, you can use the Update Log API.
 ```
-https://api.keywordsai.co/api/request-logs/batch-update/
+https://api.respan.ai/api/request-logs/batch-update/
 ```
 
 Here's the example that updates the `positive_feedback` field for a log with id `xxxxxx`. P.S. You can find the log id in the `unique_id` field in the response of the [Get logs](/api-endpoints/observe/logs/list) or get it directly from the Logs in the UI.
@@ -62,8 +62,8 @@ Here's the example that updates the `positive_feedback` field for a log with id 
 ```python Python
 import requests
 
-url = "https://api.keywordsai.co/api/request-logs/batch-update/"
-api_key = "YOUR_KEY" # Replace with your actual Keywords AI API key
+url = "https://api.respan.ai/api/request-logs/batch-update/"
+api_key = "YOUR_KEY" # Replace with your actual Respan API key
 data = {
     "logs": [
         {   "unique_id": "xxxxxx",
@@ -83,11 +83,11 @@ print(response.json())
 ```
 
 ```typescript TypeScript
-fetch("https://api.keywordsai.co/api/request-logs/batch-update/", {
+fetch("https://api.respan.ai/api/request-logs/batch-update/", {
   method: 'PATCH',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer Your_Keywords_AI_API_Key '
+    'Authorization': 'Bearer Your_Respan_API_Key '
   },
     body: JSON.stringify({
         logs: [

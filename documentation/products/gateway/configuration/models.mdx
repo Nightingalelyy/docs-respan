@@ -5,7 +5,7 @@ description: "Call 200+ LLMs with a single OpenAI compatible format"
 
 
 ## Choose a model
-After you integrate the LLM proxy, you can choose a model from the [Models page](https://platform.keywordsai.co/platform/models). In this page, you can see each model's description, pricing, and other metrics, which helps you choose the best model for your use case.
+After you integrate the LLM proxy, you can choose a model from the [Models page](https://platform.respan.ai/platform/models). In this page, you can see each model's description, pricing, and other metrics, which helps you choose the best model for your use case.
 <Frame>
 <img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/llm-proxy/models.png"/>
 </Frame>
@@ -29,8 +29,8 @@ If you have already integrated the LLM proxy, you can click the `Code` button to
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.keywordsai.co/api/",
-    api_key="YOUR_KEYWORDSAI_API_KEY",
+    base_url="https://api.respan.ai/api/",
+    api_key="YOUR_RESPAN_API_KEY",
 )
 
 response = client.chat.completions.create(
@@ -47,8 +47,8 @@ Here is an example of how to disable logging in the OpenAI TypeScript SDK. In Op
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.keywordsai.co/api",
-  apiKey: "YOUR_KEYWORDSAI_API_KEY",
+  baseURL: "https://api.respan.ai/api",
+  apiKey: "YOUR_RESPAN_API_KEY",
 });
 
 const response = await client.chat.completions
@@ -66,7 +66,7 @@ console.log(await response.json());
 import requests
 def demo_call(input, 
               model="groq/llama-3.3-70b-specdec",
-              token="YOUR_KEYWORDS_AI_API_KEY",
+              token="YOUR_RESPAN_API_KEY",
               ):
     headers = {
         'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ def demo_call(input,
         'messages': [{'role': 'user', 'content': input}],
     }
 
-    response = requests.post('https://api.keywordsai.co/api/chat/completions', headers=headers, json=data)
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
     return response
 
 messages = "Say 'Hello World'"

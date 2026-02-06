@@ -24,18 +24,18 @@
           {
             "group": "Get started",
             "pages": [
-              "/get-started/overview",
+              "/documentation/getting-started/overview",
               {
                 "group": "Quickstart",
                 "pages": [
-                  "/get-started/quickstart/logging",
-                  "/get-started/quickstart/tracing",
-                  "/get-started/quickstart/gateway",
-                  "/get-started/quickstart/prompt_management",
-                  "/get-started/quickstart/evaluation"
+                  "/documentation/getting-started/quickstart/logging",
+                  "/documentation/getting-started/quickstart/tracing",
+                  "/documentation/getting-started/quickstart/gateway",
+                  "/documentation/getting-started/quickstart/prompt_management",
+                  "/documentation/getting-started/quickstart/evaluation"
                 ]
               },
-              "/get-started/observability_data_model"
+              "/documentation/getting-started/observability_data_model"
             ]
           },
           {
@@ -50,7 +50,7 @@
                     "group": "Logs",
                     "pages": [
                       "/documentation/products/logs/quickstart",
-                      "/documentation/products/logs/configuration/pass_keywordsai_parameters",
+                      "/documentation/products/logs/configuration/pass_respan_parameters",
                       "/documentation/products/logs/configuration/custom_properties",
                       "/documentation/products/logs/log_variables",
                       "/documentation/products/logs/log_tool_calls",
@@ -70,7 +70,7 @@
                     "pages": [
                       "/documentation/products/traces/quickstart",
                       "/documentation/products/traces/decorators",
-                      "/documentation/products/traces/configuration/pass_keywordsai_parameters",
+                      "/documentation/products/traces/configuration/pass_respan_parameters",
                       "/documentation/products/traces/configuration/group_traces",
                       "/documentation/products/traces/configuration/customer_identifier",
                       "/documentation/products/traces/override-span-input-output",
@@ -159,7 +159,7 @@
               {
                 "group": "LLM Gateway",
                 "pages": [
-                  "/get-started/quickstart/gateway",
+                  "/documentation/getting-started/quickstart/gateway",
                   "/documentation/products/gateway/configuration/models",
                   "/documentation/products/gateway/traffic_management/load-balancing",
                   "/documentation/products/gateway/traffic_management/retries",
@@ -198,7 +198,7 @@
           {
             "group": "Admin",
             "pages": [
-              "/documentation/admin/keywords_api_keys",
+              "/documentation/admin/respan_api_keys",
               "/documentation/admin/llm_provider_keys",
               {
                 "group": "Team management",
@@ -246,7 +246,7 @@
           {
             "group": "Ecosystem",
             "pages": [
-              "/integration/overview"
+              "/integrations/overview"
             ]
           },
           {
@@ -255,17 +255,17 @@
               {
                 "group": "OpenAI Agents SDK",
                 "pages": [
-                  "/integration/development-frameworks/tracing/openai-agents-sdk",
-                  "/integration/development-frameworks/tracing/openai-agents-sdk-js"
+                  "/integrations/development-frameworks/tracing/openai-agents-sdk",
+                  "/integrations/development-frameworks/tracing/openai-agents-sdk-js"
                 ]
               },
-              "/integration/tracing/vercel-tracing",
-              "/integration/development-frameworks/tracing/mastra",
-              "/integration/development-frameworks/tracing/langgraph",
-              "/integration/development-frameworks/tracing/langfuse",
-              "/integration/development-frameworks/tracing/haystack",
-              "/integration/development-frameworks/tracing/baml",
-              "/integration/development-frameworks/tracing/instructor"
+              "/integrations/tracing/vercel-tracing",
+              "/integrations/development-frameworks/tracing/mastra",
+              "/integrations/development-frameworks/tracing/langgraph",
+              "/integrations/development-frameworks/tracing/langfuse",
+              "/integrations/development-frameworks/tracing/haystack",
+              "/integrations/development-frameworks/tracing/baml",
+              "/integrations/development-frameworks/tracing/instructor"
             ]
           },
           {
@@ -274,70 +274,70 @@
               {
                 "group": "OpenAI SDK",
                 "pages": [
-                  "/integration/development-frameworks/llm_framework/openai/openai-sdk",
-                  "/integration/development-frameworks/llm_framework/openai/openai-responses"
+                  "/integrations/development-frameworks/llm_framework/openai/openai-sdk",
+                  "/integrations/development-frameworks/llm_framework/openai/openai-responses"
                 ]
               },
-              "/integration/development-frameworks/llm_framework/anthropic",
-              "/integration/development-frameworks/llm_framework/langchain",
-              "/integration/development-frameworks/llm_framework/litellm",
-              "/integration/development-frameworks/llm_framework/haystack",
-              "/integration/development-frameworks/llm_framework/vercel",
-              "/integration/development-frameworks/llm_framework/llama-index",
-              "/integration/development-frameworks/llm_framework/google_genai"
+              "/integrations/development-frameworks/llm_framework/anthropic",
+              "/integrations/development-frameworks/llm_framework/langchain",
+              "/integrations/development-frameworks/llm_framework/litellm",
+              "/integrations/development-frameworks/llm_framework/haystack",
+              "/integrations/development-frameworks/llm_framework/vercel",
+              "/integrations/development-frameworks/llm_framework/llama-index",
+              "/integrations/development-frameworks/llm_framework/google_genai"
             ]
           },
           {
             "group": "LLM providers",
             "pages": [
-              "/integration/providers/openai",
-              "/integration/providers/anthropic",
-              "/integration/providers/openrouter",
-              "/integration/providers/groq",
-              "/integration/providers/fireworks",
-              "/integration/providers/together",
-              "/integration/providers/perplexity",
-              "/integration/providers/azure",
-              "/integration/providers/vertex",
-              "/integration/providers/gemini",
-              "/integration/providers/bedrock",
-              "/integration/providers/nebius",
-              "/integration/providers/novita",
-              "/integration/providers/xAI",
-              "/integration/providers/ai21labs",
-              "/integration/providers/baseten",
-              "/integration/providers/cohere",
-              "/integration/providers/deepseek",
-              "/integration/providers/inference",
-              "/integration/providers/mistral",
-              "/integration/providers/moonshot",
-              "/integration/providers/nextbit",
-              "/integration/providers/parasail",
-              "/integration/providers/replicate",
-              "/integration/providers/reducto"
+              "/integrations/providers/openai",
+              "/integrations/providers/anthropic",
+              "/integrations/providers/openrouter",
+              "/integrations/providers/groq",
+              "/integrations/providers/fireworks",
+              "/integrations/providers/together",
+              "/integrations/providers/perplexity",
+              "/integrations/providers/azure",
+              "/integrations/providers/vertex",
+              "/integrations/providers/gemini",
+              "/integrations/providers/bedrock",
+              "/integrations/providers/nebius",
+              "/integrations/providers/novita",
+              "/integrations/providers/xAI",
+              "/integrations/providers/ai21labs",
+              "/integrations/providers/baseten",
+              "/integrations/providers/cohere",
+              "/integrations/providers/deepseek",
+              "/integrations/providers/inference",
+              "/integrations/providers/mistral",
+              "/integrations/providers/moonshot",
+              "/integrations/providers/nextbit",
+              "/integrations/providers/parasail",
+              "/integrations/providers/replicate",
+              "/integrations/providers/reducto"
             ]
           },
           {
             "group": "Dev Tools",
             "pages": [
-              "/integration/dev-tools/cursor",
-              "/integration/dev-tools/claude-code",
-              "/integration/dev-tools/linkup"
+              "/integrations/dev-tools/cursor",
+              "/integrations/dev-tools/claude-code",
+              "/integrations/dev-tools/linkup"
             ]
           },
           {
             "group": "Memory",
             "pages": [
-              "/integration/development-frameworks/mem0",
-              "/integration/others/cognee"
+              "/integrations/development-frameworks/mem0",
+              "/integrations/others/cognee"
             ]
           },
           {
             "group": "Others",
             "pages": [
-              "/integration/providers/assemblyai",
-              "/integration/development-frameworks/baml",
-              "/integration/analytics/posthog"
+              "/integrations/providers/assemblyai",
+              "/integrations/development-frameworks/baml",
+              "/integrations/analytics/posthog"
             ]
           }
         ]
@@ -351,39 +351,39 @@
               {
                 "group": "Logs",
                 "pages": [
-                  "/api-endpoints/observe/logs/request-logging-endpoint",
-                  "/api-endpoints/observe/logs/logs-list-endpoint",
-                  "/api-endpoints/observe/logs/logs-summary-endpoint",
-                  "/api-endpoints/observe/logs/get-log-endpoint",
-                  "/api-endpoints/observe/logs/update-single-log-endpoint",
-                  "/api-endpoints/observe/logs/logs-update-endpoint",
-                  "/api-endpoints/observe/logs/delete-log-endpoint",
-                  "/api-endpoints/observe/logs/ingest"
+                  "/apis/observe/logs/request-logging-endpoint",
+                  "/apis/observe/logs/logs-list-endpoint",
+                  "/apis/observe/logs/logs-summary-endpoint",
+                  "/apis/observe/logs/get-log-endpoint",
+                  "/apis/observe/logs/update-single-log-endpoint",
+                  "/apis/observe/logs/logs-update-endpoint",
+                  "/apis/observe/logs/delete-log-endpoint",
+                  "/apis/observe/logs/ingest"
                 ]
               },
               {
                 "group": "Traces",
                 "pages": [
-                  "/api-endpoints/observe/traces/list",
-                  "/api-endpoints/observe/traces/get",
-                  "/api-endpoints/observe/traces/summary",
-                  "/api-endpoints/observe/traces/traces-ingest-from-logs"
+                  "/apis/observe/traces/list",
+                  "/apis/observe/traces/get",
+                  "/apis/observe/traces/summary",
+                  "/apis/observe/traces/traces-ingest-from-logs"
                 ]
               },
               {
                 "group": "Threads",
                 "pages": [
-                  "/api-endpoints/observe/threads/thread-list-endpoint"
+                  "/apis/observe/threads/thread-list-endpoint"
                 ]
               },
               {
                 "group": "Users",
                 "pages": [
-                  "/api-endpoints/observe/users/user-creation-endpoint",
-                  "/api-endpoints/observe/users/users-data-endpoint",
-                  "/api-endpoints/observe/users/user-detail-endpoint",
-                  "/api-endpoints/observe/users/user-update-endpoint",
-                  "/api-endpoints/observe/users/user-delete-endpoint"
+                  "/apis/observe/users/user-creation-endpoint",
+                  "/apis/observe/users/users-data-endpoint",
+                  "/apis/observe/users/user-detail-endpoint",
+                  "/apis/observe/users/user-update-endpoint",
+                  "/apis/observe/users/user-delete-endpoint"
                 ]
               }
             ]
@@ -394,7 +394,7 @@
               {
                 "group": "Gateway",
                 "pages": [
-                  "/api-endpoints/develop/gateway/chat-completions"
+                  "/apis/develop/gateway/chat-completions"
                 ]
               },
               {
@@ -403,20 +403,20 @@
                   {
                     "group": "Files",
                     "pages": [
-                      "/api-endpoints/develop/openai-batch/files/upload",
-                      "/api-endpoints/develop/openai-batch/files/list",
-                      "/api-endpoints/develop/openai-batch/files/get",
-                      "/api-endpoints/develop/openai-batch/files/delete",
-                      "/api-endpoints/develop/openai-batch/files/content"
+                      "/apis/develop/openai-batch/files/upload",
+                      "/apis/develop/openai-batch/files/list",
+                      "/apis/develop/openai-batch/files/get",
+                      "/apis/develop/openai-batch/files/delete",
+                      "/apis/develop/openai-batch/files/content"
                     ]
                   },
                   {
                     "group": "Batches",
                     "pages": [
-                      "/api-endpoints/develop/openai-batch/batches/create",
-                      "/api-endpoints/develop/openai-batch/batches/list",
-                      "/api-endpoints/develop/openai-batch/batches/get",
-                      "/api-endpoints/develop/openai-batch/batches/cancel"
+                      "/apis/develop/openai-batch/batches/create",
+                      "/apis/develop/openai-batch/batches/list",
+                      "/apis/develop/openai-batch/batches/get",
+                      "/apis/develop/openai-batch/batches/cancel"
                     ]
                   }
                 ]
@@ -424,26 +424,26 @@
               {
                 "group": "Multimodal",
                 "pages": [
-                  "/api-endpoints/develop/multimodal/embeddings",
-                  "/api-endpoints/develop/multimodal/speech-to-text",
-                  "/api-endpoints/develop/multimodal/text-to-speech",
-                  "/api-endpoints/develop/multimodal/assemblyai"
+                  "/apis/develop/multimodal/embeddings",
+                  "/apis/develop/multimodal/speech-to-text",
+                  "/apis/develop/multimodal/text-to-speech",
+                  "/apis/develop/multimodal/assemblyai"
                 ]
               },
               {
                 "group": "Prompts",
                 "pages": [
-                  "/api-endpoints/develop/prompts/create-prompts",
-                  "/api-endpoints/develop/prompts/get-prompts",
-                  "/api-endpoints/develop/prompts/update-prompt",
-                  "/api-endpoints/develop/prompts/delete-prompt",
+                  "/apis/develop/prompts/create-prompts",
+                  "/apis/develop/prompts/get-prompts",
+                  "/apis/develop/prompts/update-prompt",
+                  "/apis/develop/prompts/delete-prompt",
                   {
                     "group": "Prompt Versions",
                     "pages": [
-                      "/api-endpoints/develop/prompts/create-prompt-version",
-                      "/api-endpoints/develop/prompts/get-prompt-versions",
-                      "/api-endpoints/develop/prompts/update-prompt-version",
-                      "/api-endpoints/develop/prompts/delete-prompt-version"
+                      "/apis/develop/prompts/create-prompt-version",
+                      "/apis/develop/prompts/get-prompt-versions",
+                      "/apis/develop/prompts/update-prompt-version",
+                      "/apis/develop/prompts/delete-prompt-version"
                     ]
                   }
                 ]
@@ -451,18 +451,18 @@
               {
                 "group": "Testsets",
                 "pages": [
-                  "/api-endpoints/develop/testsets/create",
-                  "/api-endpoints/develop/testsets/list",
-                  "/api-endpoints/develop/testsets/get",
-                  "/api-endpoints/develop/testsets/update",
-                  "/api-endpoints/develop/testsets/delete",
+                  "/apis/develop/testsets/create",
+                  "/apis/develop/testsets/list",
+                  "/apis/develop/testsets/get",
+                  "/apis/develop/testsets/update",
+                  "/apis/develop/testsets/delete",
                   {
                     "group": "Testset Rows",
                     "pages": [
-                      "/api-endpoints/develop/testsets/rows-create",
-                      "/api-endpoints/develop/testsets/rows-list",
-                      "/api-endpoints/develop/testsets/rows-update",
-                      "/api-endpoints/develop/testsets/rows-delete"
+                      "/apis/develop/testsets/rows-create",
+                      "/apis/develop/testsets/rows-list",
+                      "/apis/develop/testsets/rows-update",
+                      "/apis/develop/testsets/rows-delete"
                     ]
                   }
                 ]
@@ -470,20 +470,20 @@
               {
                 "group": "Experiments",
                 "pages": [
-                  "/api-endpoints/develop/experiments-v2/create",
-                  "/api-endpoints/develop/experiments-v2/list",
-                  "/api-endpoints/develop/experiments-v2/search",
-                  "/api-endpoints/develop/experiments-v2/get",
-                  "/api-endpoints/develop/experiments-v2/delete",
+                  "/apis/develop/experiments-v2/create",
+                  "/apis/develop/experiments-v2/list",
+                  "/apis/develop/experiments-v2/search",
+                  "/apis/develop/experiments-v2/get",
+                  "/apis/develop/experiments-v2/delete",
                   {
                     "group": "Experiment logs",
                     "pages": [
-                      "/api-endpoints/develop/experiments-v2/logs-list",
-                      "/api-endpoints/develop/experiments-v2/logs-search",
-                      "/api-endpoints/develop/experiments-v2/logs-get",
-                      "/api-endpoints/develop/experiments-v2/logs-update",
-                      "/api-endpoints/develop/experiments-v2/logs-summary",
-                      "/api-endpoints/develop/experiments-v2/logs-export"
+                      "/apis/develop/experiments-v2/logs-list",
+                      "/apis/develop/experiments-v2/logs-search",
+                      "/apis/develop/experiments-v2/logs-get",
+                      "/apis/develop/experiments-v2/logs-update",
+                      "/apis/develop/experiments-v2/logs-summary",
+                      "/apis/develop/experiments-v2/logs-export"
                     ]
                   }
                 ]
@@ -496,41 +496,41 @@
               {
                 "group": "Evaluators",
                 "pages": [
-                  "/api-endpoints/evaluate/evaluators/create",
-                  "/api-endpoints/evaluate/evaluators/list",
-                  "/api-endpoints/evaluate/evaluators/get",
-                  "/api-endpoints/evaluate/evaluators/update",
-                  "/api-endpoints/evaluate/evaluators/delete",
-                  "/api-endpoints/evaluate/evaluators/run"
+                  "/apis/evaluate/evaluators/create",
+                  "/apis/evaluate/evaluators/list",
+                  "/apis/evaluate/evaluators/get",
+                  "/apis/evaluate/evaluators/update",
+                  "/apis/evaluate/evaluators/delete",
+                  "/apis/evaluate/evaluators/run"
                 ]
               },
               {
                 "group": "Datasets",
                 "pages": [
-                  "/api-endpoints/evaluate/datasets/get",
-                  "/api-endpoints/evaluate/datasets/create",
-                  "/api-endpoints/evaluate/datasets/list",
-                  "/api-endpoints/evaluate/datasets/patch",
-                  "/api-endpoints/evaluate/datasets/delete",
+                  "/apis/evaluate/datasets/get",
+                  "/apis/evaluate/datasets/create",
+                  "/apis/evaluate/datasets/list",
+                  "/apis/evaluate/datasets/patch",
+                  "/apis/evaluate/datasets/delete",
                   {
                     "group": "Dataset Logs",
                     "pages": [
-                      "/api-endpoints/evaluate/datasets/logs-list",
-                      "/api-endpoints/evaluate/datasets/logs-list-post",
-                      "/api-endpoints/evaluate/datasets/logs-create",
-                      "/api-endpoints/evaluate/datasets/logs-get",
-                      "/api-endpoints/evaluate/datasets/logs-put",
-                      "/api-endpoints/evaluate/datasets/logs-patch",
-                      "/api-endpoints/evaluate/datasets/logs-delete",
-                      "/api-endpoints/evaluate/datasets/logs-remove",
-                      "/api-endpoints/evaluate/datasets/logs-add"
+                      "/apis/evaluate/datasets/logs-list",
+                      "/apis/evaluate/datasets/logs-list-post",
+                      "/apis/evaluate/datasets/logs-create",
+                      "/apis/evaluate/datasets/logs-get",
+                      "/apis/evaluate/datasets/logs-put",
+                      "/apis/evaluate/datasets/logs-patch",
+                      "/apis/evaluate/datasets/logs-delete",
+                      "/apis/evaluate/datasets/logs-remove",
+                      "/apis/evaluate/datasets/logs-add"
                     ]
                   },
                   {
                     "group": "Dataset Evaluations",
                     "pages": [
-                      "/api-endpoints/evaluate/datasets/eval-reports-create",
-                      "/api-endpoints/evaluate/datasets/eval-reports-list"
+                      "/apis/evaluate/datasets/eval-reports-create",
+                      "/apis/evaluate/datasets/eval-reports-list"
                     ]
                   }
                 ]
@@ -538,21 +538,21 @@
               {
                 "group": "Scores",
                 "pages": [
-                  "/api-endpoints/evaluate/scores/list",
-                  "/api-endpoints/evaluate/scores/create",
-                  "/api-endpoints/evaluate/scores/get",
-                  "/api-endpoints/evaluate/scores/update",
-                  "/api-endpoints/evaluate/scores/delete"
+                  "/apis/evaluate/scores/list",
+                  "/apis/evaluate/scores/create",
+                  "/apis/evaluate/scores/get",
+                  "/apis/evaluate/scores/update",
+                  "/apis/evaluate/scores/delete"
                 ]
               },
               {
                 "group": "Log Scores",
                 "pages": [
-                  "/api-endpoints/evaluate/log-scores/list",
-                  "/api-endpoints/evaluate/log-scores/create",
-                  "/api-endpoints/evaluate/log-scores/get",
-                  "/api-endpoints/evaluate/log-scores/update",
-                  "/api-endpoints/evaluate/log-scores/delete"
+                  "/apis/evaluate/log-scores/list",
+                  "/apis/evaluate/log-scores/create",
+                  "/apis/evaluate/log-scores/get",
+                  "/apis/evaluate/log-scores/update",
+                  "/apis/evaluate/log-scores/delete"
                 ]
               }
             ]
@@ -563,25 +563,25 @@
               {
                 "group": "Models",
                 "pages": [
-                  "/api-endpoints/manage/models/models-endpoint",
+                  "/apis/manage/models/models-endpoint",
                   {
                     "group": "Custom Models",
                     "pages": [
-                      "/api-endpoints/manage/models/custom-models/list",
-                      "/api-endpoints/manage/models/custom-models/create",
-                      "/api-endpoints/manage/models/custom-models/get",
-                      "/api-endpoints/manage/models/custom-models/update",
-                      "/api-endpoints/manage/models/custom-models/delete"
+                      "/apis/manage/models/custom-models/list",
+                      "/apis/manage/models/custom-models/create",
+                      "/apis/manage/models/custom-models/get",
+                      "/apis/manage/models/custom-models/update",
+                      "/apis/manage/models/custom-models/delete"
                     ]
                   },
                   {
                     "group": "Custom Providers",
                     "pages": [
-                      "/api-endpoints/manage/models/custom-providers/list",
-                      "/api-endpoints/manage/models/custom-providers/create",
-                      "/api-endpoints/manage/models/custom-providers/get",
-                      "/api-endpoints/manage/models/custom-providers/update",
-                      "/api-endpoints/manage/models/custom-providers/delete"
+                      "/apis/manage/models/custom-providers/list",
+                      "/apis/manage/models/custom-providers/create",
+                      "/apis/manage/models/custom-providers/get",
+                      "/apis/manage/models/custom-providers/update",
+                      "/apis/manage/models/custom-providers/delete"
                     ]
                   }
                 ]
@@ -589,11 +589,11 @@
               {
                 "group": "Temporary API Keys",
                 "pages": [
-                  "/api-endpoints/manage/temporary-api-keys/list-temporary-keys",
-                  "/api-endpoints/manage/temporary-api-keys/create-temporary-key",
-                  "/api-endpoints/manage/temporary-api-keys/retrieve-temporary-key",
-                  "/api-endpoints/manage/temporary-api-keys/update-temporary-key",
-                  "/api-endpoints/manage/temporary-api-keys/delete-temporary-key"
+                  "/apis/manage/temporary-api-keys/list-temporary-keys",
+                  "/apis/manage/temporary-api-keys/create-temporary-key",
+                  "/apis/manage/temporary-api-keys/retrieve-temporary-key",
+                  "/apis/manage/temporary-api-keys/update-temporary-key",
+                  "/apis/manage/temporary-api-keys/delete-temporary-key"
                 ]
               }
             ]
@@ -604,15 +604,15 @@
               {
                 "group": "Conditions",
                 "pages": [
-                  "/api-endpoints/automation/conditions/list",
-                  "/api-endpoints/automation/conditions/create"
+                  "/apis/automation/conditions/list",
+                  "/apis/automation/conditions/create"
                 ]
               },
               {
                 "group": "Automations",
                 "pages": [
-                  "/api-endpoints/automation/automations/create",
-                  "/api-endpoints/automation/automations/patch"
+                  "/apis/automation/automations/create",
+                  "/apis/automation/automations/patch"
                 ]
               }
             ]
@@ -620,7 +620,7 @@
           {
             "group": "Reference",
             "pages": [
-              "/api-endpoints/reference/filters_api_reference"
+              "/apis/reference/filters_api_reference"
             ]
           }
         ]
@@ -634,48 +634,48 @@
               {
                 "group": "Getting Started",
                 "pages": [
-                  "/tracing-sdk/quickstart",
-                  "/tracing-sdk/examples"
+                  "/sdks/python-tracing/quickstart",
+                  "/sdks/python-tracing/examples"
                 ]
               },
               {
                 "group": "Decorators",
                 "pages": [
-                  "/tracing-sdk/decorators/workflow",
-                  "/tracing-sdk/decorators/task",
-                  "/tracing-sdk/decorators/agent",
-                  "/tracing-sdk/decorators/tool"
+                  "/sdks/python-tracing/decorators/workflow",
+                  "/sdks/python-tracing/decorators/task",
+                  "/sdks/python-tracing/decorators/agent",
+                  "/sdks/python-tracing/decorators/tool"
                 ]
               },
               {
                 "group": "Client API",
                 "pages": [
-                  "/tracing-sdk/main/initialize",
-                  "/tracing-sdk/client/get-client",
-                  "/tracing-sdk/client/get-current-trace-id",
-                  "/tracing-sdk/client/get-current-span-id",
-                  "/tracing-sdk/client/update-current-span",
-                  "/tracing-sdk/client/add-event",
-                  "/tracing-sdk/client/record-exception",
-                  "/tracing-sdk/client/get-context-value",
-                  "/tracing-sdk/client/set-context-value",
-                  "/tracing-sdk/client/is-recording",
-                  "/tracing-sdk/client/get-tracer",
-                  "/tracing-sdk/client/flush",
-                  "/tracing-sdk/client/get-span-buffer",
-                  "/tracing-sdk/client/export-spans"
+                  "/sdks/python-tracing/main/initialize",
+                  "/sdks/python-tracing/client/get-client",
+                  "/sdks/python-tracing/client/get-current-trace-id",
+                  "/sdks/python-tracing/client/get-current-span-id",
+                  "/sdks/python-tracing/client/update-current-span",
+                  "/sdks/python-tracing/client/add-event",
+                  "/sdks/python-tracing/client/record-exception",
+                  "/sdks/python-tracing/client/get-context-value",
+                  "/sdks/python-tracing/client/set-context-value",
+                  "/sdks/python-tracing/client/is-recording",
+                  "/sdks/python-tracing/client/get-tracer",
+                  "/sdks/python-tracing/client/flush",
+                  "/sdks/python-tracing/client/get-span-buffer",
+                  "/sdks/python-tracing/client/export-spans"
                 ]
               },
               {
                 "group": "Contexts",
                 "pages": [
-                  "/tracing-sdk/contexts/keywordsai-span-attributes"
+                  "/sdks/python-tracing/contexts/respan-span-attributes"
                 ]
               },
               {
                 "group": "Instrumentation",
                 "pages": [
-                  "/tracing-sdk/instrumentation/overview"
+                  "/sdks/python-tracing/instrumentation/overview"
                 ]
               }
             ]
@@ -686,101 +686,101 @@
               {
                 "group": "Getting Started",
                 "pages": [
-                  "/tracing-sdk-js/quickstart",
-                  "/tracing-sdk-js/examples"
+                  "/sdks/typescript-tracing/quickstart",
+                  "/sdks/typescript-tracing/examples"
                 ]
               },
               {
                 "group": "Methods",
                 "pages": [
-                  "/tracing-sdk-js/methods/with-workflow",
-                  "/tracing-sdk-js/methods/with-task",
-                  "/tracing-sdk-js/methods/with-agent",
-                  "/tracing-sdk-js/methods/with-tool"
+                  "/sdks/typescript-tracing/methods/with-workflow",
+                  "/sdks/typescript-tracing/methods/with-task",
+                  "/sdks/typescript-tracing/methods/with-agent",
+                  "/sdks/typescript-tracing/methods/with-tool"
                 ]
               },
               {
                 "group": "Client API",
                 "pages": [
-                  "/tracing-sdk-js/client/initialize",
-                  "/tracing-sdk-js/client/get-client",
-                  "/tracing-sdk-js/client/get-current-trace-id",
-                  "/tracing-sdk-js/client/get-current-span-id",
-                  "/tracing-sdk-js/client/update-current-span",
-                  "/tracing-sdk-js/client/add-span-event",
-                  "/tracing-sdk-js/client/record-span-exception",
-                  "/tracing-sdk-js/client/get-context-value",
-                  "/tracing-sdk-js/client/set-context-value",
-                  "/tracing-sdk-js/client/is-recording",
-                  "/tracing-sdk-js/client/get-tracer",
-                  "/tracing-sdk-js/client/flush",
-                  "/tracing-sdk-js/client/shutdown"
+                  "/sdks/typescript-tracing/client/initialize",
+                  "/sdks/typescript-tracing/client/get-client",
+                  "/sdks/typescript-tracing/client/get-current-trace-id",
+                  "/sdks/typescript-tracing/client/get-current-span-id",
+                  "/sdks/typescript-tracing/client/update-current-span",
+                  "/sdks/typescript-tracing/client/add-span-event",
+                  "/sdks/typescript-tracing/client/record-span-exception",
+                  "/sdks/typescript-tracing/client/get-context-value",
+                  "/sdks/typescript-tracing/client/set-context-value",
+                  "/sdks/typescript-tracing/client/is-recording",
+                  "/sdks/typescript-tracing/client/get-tracer",
+                  "/sdks/typescript-tracing/client/flush",
+                  "/sdks/typescript-tracing/client/shutdown"
                 ]
               },
               {
                 "group": "Configuration",
                 "pages": [
-                  "/tracing-sdk-js/configuration/keywordsai-params"
+                  "/sdks/typescript-tracing/configuration/respan-params"
                 ]
               },
               {
                 "group": "Instrumentation",
                 "pages": [
-                  "/tracing-sdk-js/instrumentation/overview"
+                  "/sdks/typescript-tracing/instrumentation/overview"
                 ]
               }
             ]
           },
           {
-            "group": "Keywords AI SDK",
+            "group": "Respan SDK",
             "pages": [
               {
                 "group": "Getting Started",
                 "pages": [
-                  "/python-sdk/quickstart",
-                  "/python-sdk/examples"
+                  "/sdks/python/quickstart",
+                  "/sdks/python/examples"
                 ]
               },
               {
                 "group": "Logs",
                 "pages": [
-                  "/python-sdk/logs/overview",
-                  "/python-sdk/logs/create",
-                  "/python-sdk/logs/list"
+                  "/sdks/python/logs/overview",
+                  "/sdks/python/logs/create",
+                  "/sdks/python/logs/list"
                 ]
               },
               {
                 "group": "Prompts",
                 "pages": [
-                  "/python-sdk/prompts/overview",
-                  "/python-sdk/prompts/create",
-                  "/python-sdk/prompts/list",
-                  "/python-sdk/prompts/get",
-                  "/python-sdk/prompts/update",
-                  "/python-sdk/prompts/delete",
-                  "/python-sdk/prompts/create-version",
-                  "/python-sdk/prompts/list-versions",
-                  "/python-sdk/prompts/get-version",
-                  "/python-sdk/prompts/update-version"
+                  "/sdks/python/prompts/overview",
+                  "/sdks/python/prompts/create",
+                  "/sdks/python/prompts/list",
+                  "/sdks/python/prompts/get",
+                  "/sdks/python/prompts/update",
+                  "/sdks/python/prompts/delete",
+                  "/sdks/python/prompts/create-version",
+                  "/sdks/python/prompts/list-versions",
+                  "/sdks/python/prompts/get-version",
+                  "/sdks/python/prompts/update-version"
                 ]
               },
               {
                 "group": "Experiments",
                 "pages": [
-                  "/python-sdk/experiments/overview",
-                  "/python-sdk/experiments/create",
-                  "/python-sdk/experiments/list",
-                  "/python-sdk/experiments/get",
-                  "/python-sdk/experiments/update",
-                  "/python-sdk/experiments/delete",
-                  "/python-sdk/experiments/add-rows",
-                  "/python-sdk/experiments/remove-rows",
-                  "/python-sdk/experiments/update-rows",
-                  "/python-sdk/experiments/add-columns",
-                  "/python-sdk/experiments/remove-columns",
-                  "/python-sdk/experiments/update-columns",
-                  "/python-sdk/experiments/run-experiment",
-                  "/python-sdk/experiments/run-experiment-evals"
+                  "/sdks/python/experiments/overview",
+                  "/sdks/python/experiments/create",
+                  "/sdks/python/experiments/list",
+                  "/sdks/python/experiments/get",
+                  "/sdks/python/experiments/update",
+                  "/sdks/python/experiments/delete",
+                  "/sdks/python/experiments/add-rows",
+                  "/sdks/python/experiments/remove-rows",
+                  "/sdks/python/experiments/update-rows",
+                  "/sdks/python/experiments/add-columns",
+                  "/sdks/python/experiments/remove-columns",
+                  "/sdks/python/experiments/update-columns",
+                  "/sdks/python/experiments/run-experiment",
+                  "/sdks/python/experiments/run-experiment-evals"
                 ]
               }
             ]
@@ -794,7 +794,7 @@
             "group": "Changelog",
             "icon": "calendar",
             "pages": [
-              "changelog"
+              "changelog/index"
             ]
           }
         ]
@@ -807,14 +807,14 @@
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
-    "href": "https://www.keywordsai.co"
+    "href": "https://www.respan.ai"
   },
   "api": {
     "playground": {
       "display": "interactive"
     },
     "mdx": {
-      "server": "https://api.keywordsai.co",
+      "server": "https://api.respan.ai",
       "auth": {
         "method": "bearer",
         "name": "Authorization"
@@ -837,7 +837,7 @@
     "primary": {
       "type": "button",
       "label": "platform",
-      "href": "https://platform.keywordsai.co/"
+      "href": "https://platform.respan.ai/"
     }
   },
   "search": {
@@ -845,16 +845,16 @@
   },
   "seo": {
     "metatags": {
-      "og:site_name": "Keywords AI | LLM monitoring platform",
+      "og:site_name": "Respan | LLM monitoring platform",
       "og:image": "/logo.svg",
-      "twitter:site": "@keywordsai"
+      "twitter:site": "@respan"
     },
     "indexing": "all"
   },
   "footer": {
     "socials": {
-      "linkedin": "https://www.linkedin.com/company/keywordsai/",
-      "github": "https://github.com/keywordsai",
+      "linkedin": "https://www.linkedin.com/company/respan/",
+      "github": "https://github.com/respan",
       "discord": "https://discord.com/invite/KEanfAafQQ"
     }
   },
@@ -873,20 +873,20 @@
   },
   "redirects": [
     {
-      "source": "/integration/development-frameworks/openai-agent",
-      "destination": "/integration/development-frameworks/tracing/openai-agents-sdk"
+      "source": "/integrations/development-frameworks/openai-agent",
+      "destination": "/integrations/development-frameworks/tracing/openai-agents-sdk"
     },
     {
-      "source": "/integration/development-frameworks/openai-agents-sdk-js",
-      "destination": "/integration/development-frameworks/tracing/openai-agents-sdk-js"
+      "source": "/integrations/development-frameworks/openai-agents-sdk-js",
+      "destination": "/integrations/development-frameworks/tracing/openai-agents-sdk-js"
     },
     {
-      "source": "/integration/development-frameworks/openai-sdk",
-      "destination": "/integration/development-frameworks/llm_framework/openai/openai-sdk"
+      "source": "/integrations/development-frameworks/openai-sdk",
+      "destination": "/integrations/development-frameworks/llm_framework/openai/openai-sdk"
     },
     {
-      "source": "/get-started/llm-inference",
-      "destination": "/get-started/overview"
+      "source": "/documentation/getting-started/llm-inference",
+      "destination": "/documentation/getting-started/overview"
     }
   ]
 }

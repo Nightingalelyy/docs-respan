@@ -1,23 +1,23 @@
 ---
 title: "Model Context Protocol (MCP)"
-description: "Access Keywords AI data directly from your AI coding assistant using MCP"
+description: "Access Respan data directly from your AI coding assistant using MCP"
 ---
 
-The Model Context Protocol (MCP) is a standardized framework that enables AI models to interact with external data sources and tools. It allows for real-time access to your Keywords AI logs, traces, prompts, and customer data directly from your coding environment.
+The Model Context Protocol (MCP) is a standardized framework that enables AI models to interact with external data sources and tools. It allows for real-time access to your Respan logs, traces, prompts, and customer data directly from your coding environment.
 
 ## Getting started
 
-Keywords AI provides an MCP server that gives your AI tools direct access to your observability data. The server supports both HTTP streamable (for hosted deployments) and stdio (for local use).
+Respan provides an MCP server that gives your AI tools direct access to your observability data. The server supports both HTTP streamable (for hosted deployments) and stdio (for local use).
 
 ## Installation
 
 <Tabs>
   <Tab title="Public HTTP (Recommended)">
-    Connect to Keywords AI's hosted MCP server. The simplest setup - no installation required.
+    Connect to Respan's hosted MCP server. The simplest setup - no installation required.
 
     <Steps>
       <Step title="Get your API key">
-        Get your Keywords AI API key from [platform.keywordsai.co](https://platform.keywordsai.co/platform/api/api-keys).
+        Get your Respan API key from [platform.respan.ai](https://platform.respan.ai/platform/api/api-keys).
       </Step>
       <Step title="Configure your AI tool">
         Add to your MCP configuration file:
@@ -26,10 +26,10 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
         ```json Cursor (~/.cursor/mcp.json)
         {
           "mcpServers": {
-            "keywords-ai": {
-              "url": "https://mcp.keywordsai.co/api/mcp",
+            "respan": {
+              "url": "https://mcp.respan.ai/api/mcp",
               "headers": {
-                "Authorization": "Bearer your_keywords_ai_api_key"
+                "Authorization": "Bearer your_respan_api_key"
               }
             }
           }
@@ -40,10 +40,10 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
         // ~/Library/Application Support/Claude/claude_desktop_config.json
         {
           "mcpServers": {
-            "keywords-ai": {
-              "url": "https://mcp.keywordsai.co/api/mcp",
+            "respan": {
+              "url": "https://mcp.respan.ai/api/mcp",
               "headers": {
-                "Authorization": "Bearer your_keywords_ai_api_key"
+                "Authorization": "Bearer your_respan_api_key"
               }
             }
           }
@@ -54,10 +54,10 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
         // %APPDATA%\Claude\claude_desktop_config.json
         {
           "mcpServers": {
-            "keywords-ai": {
-              "url": "https://mcp.keywordsai.co/api/mcp",
+            "respan": {
+              "url": "https://mcp.respan.ai/api/mcp",
               "headers": {
-                "Authorization": "Bearer your_keywords_ai_api_key"
+                "Authorization": "Bearer your_respan_api_key"
               }
             }
           }
@@ -85,14 +85,14 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
       </Step>
       <Step title="Clone and build the project">
         ```bash
-        git clone https://github.com/Keywords-AI/keywordsai-mcp.git
-        cd keywordsai-mcp
+        git clone https://github.com/Respan/respan-mcp.git
+        cd respan-mcp
         npm install
         npm run build
         ```
       </Step>
       <Step title="Get your API key">
-        Get your Keywords AI API key from [platform.keywordsai.co](https://platform.keywordsai.co/platform/api/api-keys).
+        Get your Respan API key from [platform.respan.ai](https://platform.respan.ai/platform/api/api-keys).
       </Step>
       <Step title="Configure your AI tool">
         Add to your MCP configuration file. **Important:** Replace the path with your actual installation path.
@@ -101,11 +101,11 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
         ```json Cursor (~/.cursor/mcp.json)
         {
           "mcpServers": {
-            "keywords-ai": {
+            "respan": {
               "command": "node",
-              "args": ["/Users/yourname/keywordsai-mcp/dist/lib/index.js"],
+              "args": ["/Users/yourname/respan-mcp/dist/lib/index.js"],
               "env": {
-                "KEYWORDS_API_KEY": "your_keywords_ai_api_key"
+                "RESPAN_API_KEY": "your_respan_api_key"
               }
             }
           }
@@ -116,11 +116,11 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
         // ~/Library/Application Support/Claude/claude_desktop_config.json
         {
           "mcpServers": {
-            "keywords-ai": {
+            "respan": {
               "command": "node",
-              "args": ["/Users/yourname/keywordsai-mcp/dist/lib/index.js"],
+              "args": ["/Users/yourname/respan-mcp/dist/lib/index.js"],
               "env": {
-                "KEYWORDS_API_KEY": "your_keywords_ai_api_key"
+                "RESPAN_API_KEY": "your_respan_api_key"
               }
             }
           }
@@ -131,11 +131,11 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
         // %APPDATA%\Claude\claude_desktop_config.json
         {
           "mcpServers": {
-            "keywords-ai": {
+            "respan": {
               "command": "node",
-              "args": ["C:/Users/yourname/keywordsai-mcp/dist/lib/index.js"],
+              "args": ["C:/Users/yourname/respan-mcp/dist/lib/index.js"],
               "env": {
-                "KEYWORDS_API_KEY": "your_keywords_ai_api_key"
+                "RESPAN_API_KEY": "your_respan_api_key"
               }
             }
           }
@@ -160,18 +160,18 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
       <Step title="Deploy to Vercel">
         Click to deploy with one click:
         
-        [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Keywords-AI/keywordsai-mcp&env=KEYWORDS_API_KEY&envDescription=Your%20Keywords%20AI%20API%20key&envLink=https://platform.keywordsai.co/platform/api/api-keys)
+        [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Respan/respan-mcp&env=RESPAN_API_KEY&envDescription=Your%20Respan%20API%20key&envLink=https://platform.respan.ai/platform/api/api-keys)
         
         Or deploy manually:
         ```bash
-        git clone https://github.com/Keywords-AI/keywordsai-mcp.git
-        cd keywordsai-mcp
+        git clone https://github.com/Respan/respan-mcp.git
+        cd respan-mcp
         vercel deploy --prod
         ```
       </Step>
       <Step title="Set environment variable">
         In Vercel Dashboard → Your Project → Settings → Environment Variables:
-        - Add `KEYWORDS_API_KEY` = `your_keywords_ai_api_key`
+        - Add `RESPAN_API_KEY` = `your_respan_api_key`
         - Redeploy for changes to take effect
       </Step>
       <Step title="Configure your AI tool">
@@ -180,7 +180,7 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
         ```json
         {
           "mcpServers": {
-            "keywords-ai": {
+            "respan": {
               "url": "https://your-project.vercel.app/mcp"
             }
           }
@@ -202,29 +202,29 @@ Keywords AI provides an MCP server that gives your AI tools direct access to you
 | Mode | API Key Location | Best For |
 |------|------------------|----------|
 | **Public HTTP** | `Authorization` header | Individual users, quick setup |
-| **Local Stdio** | `KEYWORDS_API_KEY` env var | Personal development, offline use |
+| **Local Stdio** | `RESPAN_API_KEY` env var | Personal development, offline use |
 | **Private HTTP** | Vercel environment variable | Teams, shared access |
 
-Get your Keywords AI API key from [platform.keywordsai.co](https://platform.keywordsai.co/platform/api/api-keys).
+Get your Respan API key from [platform.respan.ai](https://platform.respan.ai/platform/api/api-keys).
 
 ---
 
 ## Enterprise configuration
 
-For enterprise users with a custom API endpoint (e.g., `endpoint.keywordsai.co`), you can override the default API base URL.
+For enterprise users with a custom API endpoint (e.g., `endpoint.respan.ai`), you can override the default API base URL.
 
 <Tabs>
   <Tab title="HTTP Mode">
-    Add the `keywords-api-base-url` header:
+    Add the `respan-api-base-url` header:
     
     ```json
     {
       "mcpServers": {
-        "keywords-ai": {
-          "url": "https://mcp.keywordsai.co/api/mcp",
+        "respan": {
+          "url": "https://mcp.respan.ai/api/mcp",
           "headers": {
-            "Authorization": "Bearer your_keywords_ai_api_key",
-            "keywords-api-base-url": "https://endpoint.keywordsai.co/api"
+            "Authorization": "Bearer your_respan_api_key",
+            "respan-api-base-url": "https://endpoint.respan.ai/api"
           }
         }
       }
@@ -232,17 +232,17 @@ For enterprise users with a custom API endpoint (e.g., `endpoint.keywordsai.co`)
     ```
   </Tab>
   <Tab title="Stdio Mode">
-    Add the `KEYWORDS_API_BASE_URL` environment variable:
+    Add the `RESPAN_API_BASE_URL` environment variable:
     
     ```json
     {
       "mcpServers": {
-        "keywords-ai": {
+        "respan": {
           "command": "node",
-          "args": ["/path/to/keywordsai-mcp/dist/lib/index.js"],
+          "args": ["/path/to/respan-mcp/dist/lib/index.js"],
           "env": {
-            "KEYWORDS_API_KEY": "your_keywords_ai_api_key",
-            "KEYWORDS_API_BASE_URL": "https://endpoint.keywordsai.co/api"
+            "RESPAN_API_KEY": "your_respan_api_key",
+            "RESPAN_API_BASE_URL": "https://endpoint.respan.ai/api"
           }
         }
       }
@@ -254,15 +254,15 @@ For enterprise users with a custom API endpoint (e.g., `endpoint.keywordsai.co`)
 **Supported endpoints:**
 | Endpoint | URL |
 |----------|-----|
-| Default (Cloud) | `https://api.keywordsai.co/api` |
-| Enterprise | `https://endpoint.keywordsai.co/api` |
+| Default (Cloud) | `https://api.respan.ai/api` |
+| Enterprise | `https://endpoint.respan.ai/api` |
 | Local development | `http://localhost:8000/api` |
 
 ---
 
 ## Available tools
 
-Once connected, your AI tools have access to the following Keywords AI features.
+Once connected, your AI tools have access to the following Respan features.
 
 ### Logs
 
@@ -328,11 +328,11 @@ Once connected, your AI tools have access to the following Keywords AI features.
   <Accordion title="Authentication errors">
     1. Verify your API key is correct
     2. For HTTP mode: ensure header is `Authorization: Bearer YOUR_KEY` (not just the key)
-    3. For stdio mode: check the `KEYWORDS_API_KEY` env var is set correctly
+    3. For stdio mode: check the `RESPAN_API_KEY` env var is set correctly
   </Accordion>
   <Accordion title="Connection timeout or errors">
     1. Check your internet connection
-    2. For enterprise: verify `KEYWORDS_API_BASE_URL` is correct
+    2. For enterprise: verify `RESPAN_API_BASE_URL` is correct
     3. For private HTTP: ensure Vercel deployment is active
   </Accordion>
 </AccordionGroup>
@@ -341,8 +341,8 @@ Once connected, your AI tools have access to the following Keywords AI features.
 
 ## Source code
 
-The Keywords AI MCP server is open source:
+The Respan MCP server is open source:
 
-<Card title="GitHub Repository" icon="github" href="https://github.com/Keywords-AI/keywordsai-mcp">
+<Card title="GitHub Repository" icon="github" href="https://github.com/Respan/respan-mcp">
   View source code, report issues, and contribute
 </Card>

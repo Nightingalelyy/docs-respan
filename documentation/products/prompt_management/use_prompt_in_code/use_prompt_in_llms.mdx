@@ -3,10 +3,10 @@ title: "Use prompt in gateway"
 description: "Deploy a prompt to your codebase and understand override modes."
 ---
 
-After you create a prompt, you can deploy it to your codebase and call it through the API. Keywords AI provides two powerful override modes to give you complete control over your prompts.
+After you create a prompt, you can deploy it to your codebase and call it through the API. Respan provides two powerful override modes to give you complete control over your prompts.
 
 ## Find the prompt ID
-You should first find the Prompt ID of the prompt you want to deploy. You can find the Prompt ID in the Overview panel on the [Prompts page](https://platform.keywordsai.co/platform/prompts).
+You should first find the Prompt ID of the prompt you want to deploy. You can find the Prompt ID in the Overview panel on the [Prompts page](https://platform.respan.ai/platform/prompts).
 <Frame>
 <img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/prompt/prompt-id.png" alt="Prompt ID" />
 </Frame>
@@ -19,8 +19,8 @@ You should first find the Prompt ID of the prompt you want to deploy. You can fi
 from openai import OpenAI
 
 client = OpenAI(
-  base_url="https://api.keywordsai.co/api/", # switch to the Keywords AI base URL
-  api_key="YOUR_API_KEY", # switch to your Keywords AI API key
+  base_url="https://api.respan.ai/api/", # switch to the Respan base URL
+  api_key="YOUR_API_KEY", # switch to your Respan API key
 )
 
 response = client.chat.completions.create(
@@ -37,7 +37,7 @@ response = client.chat.completions.create(
 ```
 <Note>
 **Mode 1: Prompt Overrides OpenAI Parameters**  
-Setting `override: True` tells Keywords AI to ignore the `model` and `messages` fields in your request and use the configuration from your saved prompt instead.
+Setting `override: True` tells Respan to ignore the `model` and `messages` fields in your request and use the configuration from your saved prompt instead.
 </Note>
 </Tab>
 <Tab title="OpenAI TypeScript SDK">
@@ -46,8 +46,8 @@ In OpenAI TypeScript SDK, you should add a `// @ts-expect-error` before the `pro
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.keywordsai.co/api",
-  apiKey: "YOUR_KEYWORDSAI_API_KEY",
+  baseURL: "https://api.respan.ai/api",
+  apiKey: "YOUR_RESPAN_API_KEY",
 });
 
 const response = await client.chat.completions
@@ -67,13 +67,13 @@ console.log(await response.json());
 ```
 <Note>
 **Mode 1: Prompt Overrides OpenAI Parameters**  
-Setting `override: true` tells Keywords AI to ignore the `model` and `messages` fields in your request and use the configuration from your saved prompt instead.
+Setting `override: true` tells Respan to ignore the `model` and `messages` fields in your request and use the configuration from your saved prompt instead.
 </Note>
 </Tab>
 <Tab title="Standard API">
 ```python Python {14-17}
 import requests
-def demo_call(token="YOUR_KEYWORDS_AI_API_KEY"):
+def demo_call(token="YOUR_RESPAN_API_KEY"):
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {token}',
@@ -86,7 +86,7 @@ def demo_call(token="YOUR_KEYWORDS_AI_API_KEY"):
         }
     }
 
-    response = requests.post('https://api.keywordsai.co/api/chat/completions', headers=headers, json=data)
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
     return response
 
 print(demo_call().json())
@@ -166,7 +166,7 @@ request_body = {
 }
 ```
 ## View the logs with the prompt
-You can view the logs with the prompt by clicking a log on the [Logs page](https://platform.keywordsai.co/platform/logs) or filtering the logs with the prompt name.
+You can view the logs with the prompt by clicking a log on the [Logs page](https://platform.respan.ai/platform/logs) or filtering the logs with the prompt name.
 <Frame>
 <img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/prompt/prompt-logs.png" alt="View prompt" />
 </Frame>
@@ -228,7 +228,7 @@ You can view the logs with the prompt by clicking a log on the [Logs page](https
 ```
 </ParamField>
 
-<Info>Check out [all Keywords AI supported params here](/api-endpoints/develop/gateway/chat-completions#keywords-ai-parameters).</Info>
+<Info>Check out [all Respan supported params here](/api-endpoints/develop/gateway/chat-completions#respan-parameters).</Info>
 
 ## Troubleshooting
 
@@ -240,8 +240,8 @@ If you're using OpenAI SDK and want to connect with the prompt you created, you 
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.keywordsai.co/api/",
-    api_key="YOUR_KEYWORDSAI_API_KEY",
+    base_url="https://api.respan.ai/api/",
+    api_key="YOUR_RESPAN_API_KEY",
 )
 
 response = client.chat.completions.create(
@@ -264,8 +264,8 @@ response = client.chat.completions.create(
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.keywordsai.co/api",
-  apiKey: process.env.KEYWORDS_AI_API_KEY,
+  baseURL: "https://api.respan.ai/api",
+  apiKey: process.env.RESPAN_API_KEY,
 });
 
 const response = await client.chat.completions

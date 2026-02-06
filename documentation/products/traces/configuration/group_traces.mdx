@@ -20,11 +20,11 @@ Add the same `trace_group_identifier` to multiple workflows to group them togeth
 <Tabs>
 <Tab title="Python">
 ```python Python {17-20, 26-29}
-from keywordsai_tracing.decorators import workflow, task
-from keywordsai_tracing.main import KeywordsAITelemetry
-from keywordsai_tracing.contexts.span import keywordsai_span_attributes
+from respan_tracing.decorators import workflow, task
+from respan_tracing.main import RespanTelemetry
+from respan_tracing.contexts.span import respan_span_attributes
 
-k_tl = KeywordsAITelemetry()
+k_tl = RespanTelemetry()
 
 @task(name="joke_creation")
 def create_joke():
@@ -36,8 +36,8 @@ def joke_workflow():
 
 @workflow(name="pirate_joke_plus_audience_reactions")
 def pirate_joke_plus_audience():
-    with keywordsai_span_attributes(
-        keywordsai_params={
+    with respan_span_attributes(
+        respan_params={
             "trace_group_identifier": "pirate_joke_id"
         }): 
         joke = joke_workflow() # This show case the basic workflow usage and compatibility with the OpenAI SDK
@@ -45,8 +45,8 @@ def pirate_joke_plus_audience():
 
 @workflow(name="pirate_joke_plus_audience_reactions")
 def another_workflow():    
-  with keywordsai_span_attributes(
-        keywordsai_params={
+  with respan_span_attributes(
+        respan_params={
             "trace_group_identifier": "pirate_joke_id" # same trace group identifier as the previous workflow
         }):
         # This is the another workflow
@@ -56,9 +56,9 @@ def another_workflow():
 <Tab title="JS/TS">
 
 ```typescript TypeScript {11-18, 27-34}
-import { KeywordsAITelemetry } from "@keywordsai/tracing";
+import { RespanTelemetry } from "@respan/tracing";
 
-const keywordsAI = new KeywordsAITelemetry({
+const respanAI = new RespanTelemetry({
     // any config
 });
 
@@ -66,8 +66,8 @@ async function testTask() {// any task or workflow
 }
 
 async function testWorkflow() {
-  return await keywordsAI.withWorkflow({ name: "test" }, async () => {
-    keywordsAI.withKeywordsAISpanAttributes(
+  return await respanAI.withWorkflow({ name: "test" }, async () => {
+    respanAI.withRespanSpanAttributes(
       async () => {
         testTask();
       },
@@ -82,8 +82,8 @@ async function testWorkflow() {
 testWorkflow();
 
 async function another_testWorkflow() {
-  return await keywordsAI.withWorkflow({ name: "test_another_workflow" }, async () => {
-    keywordsAI.withKeywordsAISpanAttributes(
+  return await respanAI.withWorkflow({ name: "test_another_workflow" }, async () => {
+    respanAI.withRespanSpanAttributes(
       async () => {
      // any task or workflow
       },

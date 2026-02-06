@@ -1,9 +1,9 @@
 ---
 title: Upload image
-description: Learn how to upload image variables through Keywords AI gateway.
+description: Learn how to upload image variables through Respan gateway.
 ---
 
-If you're using the Keywords AI gateway, you can upload images to the LLM request.
+If you're using the Respan gateway, you can upload images to the LLM request.
 
 We support `base64` or `url` format for image variables.
 
@@ -16,8 +16,8 @@ We support `base64` or `url` format for image variables.
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.keywordsai.co/api/",
-    api_key="YOUR_KEYWORDSAI_API_KEY",
+    base_url="https://api.respan.ai/api/",
+    api_key="YOUR_RESPAN_API_KEY",
 )
 
 response = client.chat.completions.create(
@@ -34,8 +34,8 @@ response = client.chat.completions.create(
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.keywordsai.co/api/",
-  apiKey: "YOUR_KEYWORDSAI_API_KEY",
+  baseURL: "https://api.respan.ai/api/",
+  apiKey: "YOUR_RESPAN_API_KEY",
 });
 
 const response = await client.chat.completions
@@ -62,7 +62,7 @@ console.log(await response.json());
 import requests
 def demo_call(input, 
               model="gpt-4o-mini", # also try "claude-3-5-sonnet-20240620"
-              token="YOUR_KEYWORDS_AI_API_KEY"
+              token="YOUR_RESPAN_API_KEY"
               ):
     headers = {
         'Content-Type': 'application/json',
@@ -77,18 +77,18 @@ def demo_call(input,
         }
     }
 
-    response = requests.post('https://api.keywordsai.co/api/chat/completions', headers=headers, json=data)
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
     return response
 
 messages = "Say 'Hello World'"
 print(demo_call(messages).json())
 ```
 ```javascript Standard API JavaScript {10-12}
-fetch('https://api.keywordsai.co/api/chat/completions', {
+fetch('https://api.respan.ai/api/chat/completions', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer YOUR_KEYWORDS_AI_API_KEY'
+    'Authorization': 'Bearer YOUR_RESPAN_API_KEY'
   },
     body: JSON.stringify({
         model: 'gpt-4o-mini', // also try "claude-3-5-sonnet-20240620"

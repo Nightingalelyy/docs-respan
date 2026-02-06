@@ -86,7 +86,7 @@ Reference: [Create experiment](/api-endpoints/develop/experiments-v2/create)
 import requests
 
 API_KEY = "YOUR_API_KEY"
-url = "https://api.keywordsai.co/api/v2/experiments/"
+url = "https://api.respan.ai/api/v2/experiments/"
 
 payload = {
   "name": "Prompt Workflow Experiment",
@@ -101,7 +101,7 @@ print(res.json())
 ```
 
 ```bash cURL
-curl -X POST "https://api.keywordsai.co/api/v2/experiments/" \
+curl -X POST "https://api.respan.ai/api/v2/experiments/" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -185,7 +185,7 @@ Completion workflows execute LLM calls automatically. Common config fields inclu
 import requests
 
 API_KEY = "YOUR_API_KEY"
-url = "https://api.keywordsai.co/api/v2/experiments/"
+url = "https://api.respan.ai/api/v2/experiments/"
 
 payload = {
   "name": "Completion Workflow Experiment",
@@ -207,7 +207,7 @@ print(res.json())
 ```
 
 ```bash cURL
-curl -X POST "https://api.keywordsai.co/api/v2/experiments/" \
+curl -X POST "https://api.respan.ai/api/v2/experiments/" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{

@@ -1,9 +1,9 @@
 ---
 title: "LLM provider keys"
-description: "This is the guide for how to add your own credentials in Keywords AI"
+description: "This is the guide for how to add your own credentials in Respan"
 ---
 
-We current don't support LLM proxy users using Keywords AI credentials, so you have to add your own credentials for each model you want to use.  
+We current don't support LLM proxy users using Respan credentials, so you have to add your own credentials for each model you want to use.  
 
 There are two ways to add credentials, from the UI or in code. We recommend adding credentials from the UI, since it's easier to manage. 
 
@@ -11,7 +11,7 @@ Typically, adding credentials is basically adding the API key for the model you 
 
 ## Add credentials from the UI
 
-First, go to the [Providers page](https://platform.keywordsai.co/platform/api/providers). Choose the provider you want to use, and click the provider card.
+First, go to the [Providers page](https://platform.respan.ai/platform/api/providers). Choose the provider you want to use, and click the provider card.
 <Frame className="rounded-md">
 <img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/documentation/admin/provider_key_v0.png" alt="Providers Page"/>
 </Frame>
@@ -31,8 +31,8 @@ You can also add credentials in code, but this is not recommended since it's mor
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.keywordsai.co/api/",
-    api_key="YOUR_KEYWORDSAI_API_KEY",
+    base_url="https://api.respan.ai/api/",
+    api_key="YOUR_RESPAN_API_KEY",
 )
 
 response = client.chat.completions.create(
@@ -54,8 +54,8 @@ In OpenAI TypeScript SDK, you should add a `// @ts-expect-error` before the `cus
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.keywordsai.co/api",
-  apiKey: "YOUR_KEYWORDSAI_API_KEY",
+  baseURL: "https://api.respan.ai/api",
+  apiKey: "YOUR_RESPAN_API_KEY",
 });
 
 const response = await client.chat.completions
@@ -79,7 +79,7 @@ console.log(await response.json());
 import requests
 def demo_call(input, 
               model="gpt-4o-mini",
-              token="YOUR_KEYWORDS_AI_API_KEY",
+              token="YOUR_RESPAN_API_KEY",
               ):
     headers = {
         'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ def demo_call(input,
         }
     }
 
-    response = requests.post('https://api.keywordsai.co/api/chat/completions', headers=headers, json=data)
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
     return response
 
 messages = "Say 'Hello World'"

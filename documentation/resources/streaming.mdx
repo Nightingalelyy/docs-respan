@@ -3,13 +3,13 @@ title: "How streaming works"
 description: "Pushing the output token by token"
 ---
 
-When streaming is available, Keywords AI will forward the streaming response to your end token by token. This is useful when you want to process the output as soon as it is available, rather than waiting for the entire response to be received, and can significantly improve the user experience.
+When streaming is available, Respan will forward the streaming response to your end token by token. This is useful when you want to process the output as soon as it is available, rather than waiting for the entire response to be received, and can significantly improve the user experience.
 
 _See all params [here](/api-endpoints/develop/gateway/chat-completions)._
 ## Streaming example
 <CodeGroup>
 ```python Python
-def  keywords_ai_generate( "..."):
+def  respan_generate( "..."):
     print("Calling: ",url)
     headers = {"..."}
     data = {
@@ -23,7 +23,7 @@ def  keywords_ai_generate( "..."):
 
 ```TypeScript TypeScript
 // Define the function with TypeScript
-fetch('https://api.keywordsai.co/api/chat/completions', {
+fetch('https://api.respan.ai/api/chat/completions', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -40,9 +40,9 @@ fetch('https://api.keywordsai.co/api/chat/completions', {
 ```
 
 ```bash cURL
-curl -X POST "https://api.keywordsai.co/api/chat/completions" \
+curl -X POST "https://api.respan.ai/api/chat/completions" \
 -H "Content-Type: application/json" \
--H "Authorization: Bearer {YOUR_KEYWORDSAI_API_KEY}" \
+-H "Authorization: Bearer {YOUR_RESPAN_API_KEY}" \
 -d '{
   "messages": [
     {
@@ -58,8 +58,8 @@ curl -X POST "https://api.keywordsai.co/api/chat/completions" \
 
 </CodeGroup>
 
-## How it Works in Keywords AI (Optional reading)
-Keywords AI runs on ASGI server to handle large loads of concurrent requests.
+## How it Works in Respan (Optional reading)
+Respan runs on ASGI server to handle large loads of concurrent requests.
 
 We receive the stream from our provider as synchronous generator, and we forward it to the frontend as an asynchronous generator as soon as we start receiving the data:
 
@@ -84,7 +84,7 @@ type CallbackFunction = (line: string) => void;
 type StreamComplete = (done?: boolean) => void;
 
 const readStream = async (
-  streamResponse: Response, // HTTP response from Keywords AI API
+  streamResponse: Response, // HTTP response from Respan API
   callbackFunction: CallbackFunction, // The callback function to handle each "token" from the stream
   streamComplete: StreamComplete = (done) => console.log("Stream done")
 ): Promise<() => void> => {
@@ -127,7 +127,7 @@ const readStream = async (
 ```Python Python
 import requests
 
-response = requests.post("https://api.keywordsai.co/api/chat/completions" ...rest of your params)
+response = requests.post("https://api.respan.ai/api/chat/completions" ...rest of your params)
 
 if response.status_code == 200:
     for chunk in response.iter_content(chunk_size=None):

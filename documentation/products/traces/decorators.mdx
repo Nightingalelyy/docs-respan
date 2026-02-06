@@ -18,7 +18,7 @@ By adding `@workflow` and `@task` decorators to your functions and classes, you 
 
 | Integration | Support | Notes |
 | ----------- | ------- | ----- |
-| **Keywords AI Native** | ✅ | Built-in tracing with Keywords AI SDK |
+| **Respan Native** | ✅ | Built-in tracing with Respan SDK |
 | **OpenAI SDK** | ✅ | Python only |
 | **OpenAI Agents SDK** | ❌ | Use trace processors instead - see [OpenAI Agents SDK integration](/integration/development-frameworks/tracing/openai-agents-sdk) |
 | **Vercel AI SDK** | ❌ | Not currently supported |
@@ -35,7 +35,7 @@ Make sure if have everything ready before you start.
 
 <Tabs>
 
-<Tab title="Keywords AI Native">
+<Tab title="Respan Native">
 
 #### Annotate your workflows
 
@@ -43,10 +43,10 @@ Use the `@workflow` and `@task` decorators to instrument your code:
 
 <CodeGroup>
 ```python Python
-from keywordsai_tracing.decorators import workflow, task
-from keywordsai_tracing.main import KeywordsAITelemetry
+from respan_tracing.decorators import workflow, task
+from respan_tracing.main import RespanTelemetry
 
-k_tl = KeywordsAITelemetry()
+k_tl = RespanTelemetry()
 
 @workflow(name="my_workflow")
 def my_workflow():
@@ -57,18 +57,18 @@ def my_workflow():
     my_task()
 ```
 ```typescript JavaScript
-import { KeywordsAITelemetry } from '@keywordsai/tracing';
+import { RespanTelemetry } from '@respan/tracing';
 
-const keywordsAi = new KeywordsAITelemetry({
-    apiKey: process.env.KEYWORDSAI_API_KEY || "",
+const respanAi = new RespanTelemetry({
+    apiKey: process.env.RESPAN_API_KEY || "",
     appName: 'my-app'
 });
 
 async function myWorkflow() {
-    return await keywordsAi.withWorkflow(
+    return await respanAi.withWorkflow(
         { name: 'my_workflow' },
         async () => {
-            const result = await keywordsAi.withTask(
+            const result = await respanAi.withTask(
                 { name: 'my_task' },
                 async () => {
                     // Your task logic here
@@ -95,10 +95,10 @@ The `@workflow` decorator wraps the entire process, while each `@task` decorator
 <CodeGroup>
 ```python Python
 from openai import OpenAI
-from keywordsai_tracing.decorators import workflow, task
-from keywordsai_tracing.main import KeywordsAITelemetry
+from respan_tracing.decorators import workflow, task
+from respan_tracing.main import RespanTelemetry
 
-k_tl = KeywordsAITelemetry()
+k_tl = RespanTelemetry()
 client = OpenAI()
 
 @task(name="joke_creation")
@@ -150,18 +150,18 @@ result = joke_workflow()
 print(result)
 ```
 ```typescript JavaScript
-import { KeywordsAITelemetry } from '@keywordsai/tracing';
+import { RespanTelemetry } from '@respan/tracing';
 import OpenAI from 'openai';
 
-const keywordsAi = new KeywordsAITelemetry({
-    apiKey: process.env.KEYWORDSAI_API_KEY || "",
+const respanAi = new RespanTelemetry({
+    apiKey: process.env.RESPAN_API_KEY || "",
     appName: 'joke-app'
 });
 
 const openai = new OpenAI();
 
 async function createJoke() {
-    return await keywordsAi.withTask(
+    return await respanAi.withTask(
         { name: 'joke_creation' },
         async () => {
             const completion = await openai.chat.completions.create({
@@ -177,7 +177,7 @@ async function createJoke() {
 }
 
 async function generateSignature(joke: string) {
-    return await keywordsAi.withTask(
+    return await respanAi.withTask(
         { name: 'signature_generation' },
         async () => {
             const completion = await openai.chat.completions.create({
@@ -192,7 +192,7 @@ async function generateSignature(joke: string) {
 }
 
 async function translateJokeToPirate(joke: string) {
-    return await keywordsAi.withTask(
+    return await respanAi.withTask(
         { name: 'pirate_joke_translation' },
         async () => {
             const completion = await openai.chat.completions.create({
@@ -210,7 +210,7 @@ async function translateJokeToPirate(joke: string) {
 }
 
 async function jokeWorkflow() {
-    return await keywordsAi.withWorkflow(
+    return await respanAi.withWorkflow(
         { name: 'joke_workflow' },
         async () => {
             const joke = await createJoke();
@@ -235,10 +235,10 @@ jokeWorkflow().then(console.log);
 <CodeGroup>
 ```python Python
 from openai import OpenAI
-from keywordsai_tracing import KeywordsAITelemetry
-from keywordsai_tracing.decorators import workflow, task
+from respan_tracing import RespanTelemetry
+from respan_tracing.decorators import workflow, task
 
-k_tl = KeywordsAITelemetry()
+k_tl = RespanTelemetry()
 client = OpenAI()
 
 @workflow(name="joke_agent", method_name="run")
@@ -261,11 +261,11 @@ result = agent.run()
 ```
 ```typescript JavaScript
 // Class-based approach using TypeScript classes
-import { KeywordsAITelemetry } from '@keywordsai/tracing';
+import { RespanTelemetry } from '@respan/tracing';
 import OpenAI from 'openai';
 
-const keywordsAi = new KeywordsAITelemetry({
-    apiKey: process.env.KEYWORDSAI_API_KEY || "",
+const respanAi = new RespanTelemetry({
+    apiKey: process.env.RESPAN_API_KEY || "",
     appName: 'joke-app'
 });
 
@@ -273,7 +273,7 @@ const openai = new OpenAI();
 
 class JokeAgent {
     async createJoke() {
-        return await keywordsAi.withTask(
+        return await respanAi.withTask(
             { name: 'joke_creation' },
             async () => {
                 const completion = await openai.chat.completions.create({
@@ -286,7 +286,7 @@ class JokeAgent {
     }
     
     async run() {
-        return await keywordsAi.withWorkflow(
+        return await respanAi.withWorkflow(
             { name: 'joke_agent' },
             async () => {
                 return await this.createJoke();
@@ -303,10 +303,10 @@ agent.run().then(console.log);
 
 ## How to see this in the platform
 
-Once you've implemented decorators in your code and executed your workflows, you can view the traces in the Keywords AI platform:
+Once you've implemented decorators in your code and executed your workflows, you can view the traces in the Respan platform:
 
 ### Accessing traces
-1. Navigate to the [Traces page](https://platform.keywordsai.co/platform/traces) in your Keywords AI dashboard
+1. Navigate to the [Traces page](https://platform.respan.ai/platform/traces) in your Respan dashboard
 2. You'll see a list of all your traced workflows and tasks
 
 ### Understanding the trace view

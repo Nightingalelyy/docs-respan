@@ -1,0 +1,86 @@
+---
+title: "Retrieve user"
+api: "GET https://api.respan.ai/api/users/<customer_identifier>/"
+---
+
+Retrieves detailed information about a specific customer, including current budget usage.
+
+## Authentication
+
+<Info>
+Public API: use an API key.
+
+- `Authorization: Bearer YOUR_API_KEY` (public API)
+</Info>
+
+## Path params
+
+<ParamField path="customer_identifier" type="string" required={true}>
+Your unique identifier for this customer.
+</ParamField>
+
+## Query params
+You can add these params to the **URL params**.
+
+<ParamField query="environment" type="string" default="prod">
+  Specify environment if you are not using the default. Options: `prod`, `test`.
+</ParamField>
+
+## Request example
+
+<RequestExample>
+```python Python
+import requests
+
+url = "https://api.respan.ai/api/users/user_123/"
+headers = {"Authorization": "Bearer YOUR_API_KEY"}
+
+resp = requests.get(url, headers=headers)
+print(resp.json())
+```
+
+```bash cURL
+curl "https://api.respan.ai/api/users/user_123/" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+</RequestExample>
+
+## Response
+
+<ResponseExample>
+```json
+{
+  "id": 12345,
+  "customer_identifier": "user_123",
+  "unique_organization_id": "8264a3f4-40c7-476a-97d1-96908127ea21",
+  "email": "john@example.com",
+  "name": "John Doe",
+  "environment": "prod",
+  "organization": 456,
+  "period_budget": 100.0,
+  "budget_duration": "monthly",
+  "total_period_usage": 45.67,
+  "period_start": "2025-12-01T00:00:00Z",
+  "period_end": null,
+  "total_budget": null,
+  "total_usage": 523.45,
+  "total_requests": 15420,
+  "total_prompt_tokens": 125000,
+  "total_completion_tokens": 45000,
+  "total_tokens": 170000,
+  "total_cache_hits": 234,
+  "average_latency": 1.23,
+  "average_ttft": 0.45,
+  "average_monthly_cost": 67.89,
+  "top_models": {},
+  "last_active": "2025-12-29T10:30:00Z",
+  "created_at": "2025-10-15T08:00:00Z",
+  "updated_at": "2025-12-29T10:30:00Z",
+  "metadata": null,
+  "markup_percentage": 0.0,
+  "is_test": false,
+  "blurred": null,
+  "organization_key": null
+}
+```
+</ResponseExample>

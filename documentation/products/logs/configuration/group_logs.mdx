@@ -16,8 +16,8 @@ You can group logs by using the `group_identifier` parameter in the request body
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.keywordsai.co/api/",
-    api_key="YOUR_KEYWORDSAI_API_KEY",
+    base_url="https://api.respan.ai/api/",
+    api_key="YOUR_RESPAN_API_KEY",
 )
 
 response = client.chat.completions.create(
@@ -32,8 +32,8 @@ response = client.chat.completions.create(
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.keywordsai.co/api",
-  apiKey: "YOUR_KEYWORDSAI_API_KEY",
+  baseURL: "https://api.respan.ai/api",
+  apiKey: "YOUR_RESPAN_API_KEY",
 });
 
 const response = await client.chat.completions
@@ -52,7 +52,7 @@ console.log(await response.json());
 import requests
 def demo_call(input, 
               model="gpt-4o-mini",
-              token="YOUR_KEYWORDS_AI_API_KEY"
+              token="YOUR_RESPAN_API_KEY"
               ):
     headers = {
         'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ def demo_call(input,
         "group_identifier": "group_123"
     }
 
-    response = requests.post('https://api.keywordsai.co/api/chat/completions', headers=headers, json=data)
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
     return response
 
 messages = "Say 'Hello World'"
@@ -80,7 +80,7 @@ print(demo_call(messages).json())
 ```python Python {16}
 import requests
 
-url = "https://api.keywordsai.co/api/request-logs/create/"
+url = "https://api.respan.ai/api/request-logs/create/"
 payload = {
     "model": "claude-3-5-sonnet-20240620",
     "prompt_messages": [
@@ -97,7 +97,7 @@ payload = {
     # ... other parameters
 }
 headers = {
-    "Authorization": "Bearer YOUR_KEYWORDS_AI_API_KEY",
+    "Authorization": "Bearer YOUR_RESPAN_API_KEY",
     "Content-Type": "application/json"
 }
 
@@ -105,9 +105,9 @@ response = requests.request("POST", url, headers=headers, json=payload)
 ```
 
 ```typescript Typescript {19}
-const url = 'https://api.keywordsai.co/api/request-logs/create/';
+const url = 'https://api.respan.ai/api/request-logs/create/';
 const headers = {
-    'Authorization': 'Bearer YOUR_KEYWORDS_AI_API_KEY',
+    'Authorization': 'Bearer YOUR_RESPAN_API_KEY',
     'Content-Type': 'application/json'
 };
 

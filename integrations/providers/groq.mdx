@@ -1,0 +1,185 @@
+---
+title: "Groq"
+description: "Route Groq model calls through Respan Gateway using your own Groq credits."
+---
+
+<Note> This section is for **Respan LLM gateway** users.</Note>
+
+Use Respan Gateway to call **Groq** models while keeping unified observability (logs, cost, latency, and reliability metrics) in Respan — and optionally charge usage to **your own Groq credits**.
+
+## Prerequisites
+- A **Respan API key**
+- A **Groq API key** (BYOK credits)
+
+<CardGroup cols={1}>
+  <Card title="Get Groq API key" icon="key" href="https://console.groq.com/keys">
+    Retrieve your API key from the Groq Console to begin integration.
+  </Card>
+</CardGroup>
+
+## Supported SDKs / integrations
+
+<AccordionGroup>
+  <Accordion title="✅ Supported Frameworks">
+    - [OpenAI SDK](/integration/development-frameworks/llm_framework/openai/openai-sdk)
+    - [LangChain SDK](/integration/development-frameworks/llm_framework/langchain) 
+    - [Vercel/OpenAI](/integration/development-frameworks/llm_framework/vercel#openai)
+    - [Vercel/Google](/integration/development-frameworks/llm_framework/vercel#google)
+    - [LlamaIndex SDK](/integration/development-frameworks/llm_framework/llama-index)
+    - [Google GenAI](/integration/development-frameworks/llm_framework/google_genai)
+    - [Respan native (Otel)](/get-started/quickstart/gateway)
+  </Accordion>
+  
+  <Accordion title="❌ Unsupported Frameworks">
+    - [Anthropic SDK](/integration/development-frameworks/llm_framework/anthropic)
+    - [Vercel/Anthropic](/integration/development-frameworks/llm_framework/vercel#anthropic)
+  </Accordion>
+</AccordionGroup>
+
+## Configuration
+There are 2 ways to add your Groq credentials to your requests:
+
+### Via UI (Global)
+
+<Steps>
+  <Step title="Navigate to Providers">
+    Go to the [Providers page](https://platform.respan.ai/platform/api/providers). This page allows you to manage credentials for over 20+ supported providers.
+    <Frame>
+      <img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/settings/providers.jpg" alt="Respan Providers Page"/>
+    </Frame>
+  </Step>
+
+  <Step title="Add your Groq API Key">
+    Select Groq and paste your API key.
+    <Frame>
+      <img src="/images/providers/groq.png" alt="Add Groq Credentials"/>
+    </Frame>
+  </Step>
+
+  <Step title="Configure Load Balancing (Optional)">
+    You can add multiple Groq API keys for redundancy. Use the `Load balancing weight` field to determine how traffic is distributed between keys.
+  </Step>
+</Steps>
+
+### Via code (Per-Request)
+You can pass credentials dynamically in the request body. This is useful if you need to use your users' own API keys (BYOK credits).
+
+Add the `customer_credentials` parameter to your [Gateway request](/api-endpoints/develop/gateway/chat-completions):
+
+```json
+{
+  // Rest of the request body
+  "customer_credentials": {
+    "groq": {
+      "api_key": "YOUR_GROQ_API_KEY"
+    }
+  }
+}
+```
+
+## Override credentials for a particular model (Optional)
+
+If you uploaded provider credentials in the UI, you can still override credentials for specific models on a per-request basis.
+```json
+{
+  // Rest of the request body
+  "customer_credentials": {
+    "groq": {
+      "api_key": "YOUR_GROQ_API_KEY"
+    }
+  },
+  "credential_override": {
+    "groq/llama-3.1-8b-versatile": {
+      "api_key": "ANOTHER_GROQ_API_KEY"
+    }
+  }
+}
+```
+
+## Log Groq requests
+
+If you are not using the Gateway to proxy requests, you can still log your Groq requests to Respan asynchronously. This allows you to track cost, latency, and performance metrics for external calls.
+
+```python Groq Python SDK
+import requests
+
+url = "https://api.respan.ai/api/request-logs/create/"
+payload = {
+    "model": "llama3-8b-8192",
+    "prompt_messages": [
+        {
+            "role": "user",
+            "content": "Write a short poem about AI"
+        }
+    ],
+    "completion_message": {
+        "role": "assistant",
+        "content": "In circuits bright and data streams, AI awakens from digital dreams..."
+    },
+    "cost": 0.0001,
+    "generation_time": 0.8,
+    "customer_params": {
+        "customer_identifier": "user_101"
+    }
+}
+headers = {
+    "Authorization": "Bearer YOUR_RESPAN_API_KEY",
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+```
+
+<Card title="Get Started with Logging" icon="rocket" href="/documentation/products/logs/quickstart"> Learn how to set up comprehensive logging for all your LLM requests </Card>
+
+
+{/* ## Full request example
+<Accordion title="Example">
+<CodeGroup>
+```python openai_example.py
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.respan.ai/api/",
+    api_key="YOUR_RESPAN_API_KEY",
+)
+
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role":"user", "content":"Tell me a long story"}],
+    extra_body={"customer_credentials": {
+                  "groq": {
+                      "api_key": "YOUR_GROQ_API_KEY",
+                  }
+                }
+              }
+)
+```python api_example.py
+import requests
+def demo_call(input, 
+              model="gpt-4o",
+              token="YOUR_RESPAN_API_KEY"
+              ):
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {token}',
+    }
+
+    data = {
+        'model': model,
+        'messages': [{'role': 'user', 'content': input}],
+        'customer_credentials': {
+            'groq': {
+                'api_key': "YOUR_GROQ_API_KEY",
+            }
+        }
+    }
+
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
+    return response
+
+messages = "Say 'Hello World'"
+print(demo_call(messages).json())
+```
+</CodeGroup>
+</Accordion> */}

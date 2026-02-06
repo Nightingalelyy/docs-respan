@@ -2,24 +2,24 @@
 title: Webhooks
 ---
 
-The Keywords AI platform provides a webhook system that allows you to receive notifications when certain events occur. 
+The Respan platform provides a webhook system that allows you to receive notifications when certain events occur. 
 
-For example, when Keywords AI logs a new request, your webhook and point can receive this notification as an API call from Keywords AI.
+For example, when Respan logs a new request, your webhook and point can receive this notification as an API call from Respan.
 
 <img src="/images/api-features/webhooks/webhooks.png"/>
 
 ## Authentication
-Keywords AI uses [digital signature](https://en.wikipedia.org/wiki/Digital_signature) strategy for webhook data verification.
+Respan uses [digital signature](https://en.wikipedia.org/wiki/Digital_signature) strategy for webhook data verification.
 
-The data sent from Keywords AI undergoes the following process before you can use it:
+The data sent from Respan undergoes the following process before you can use it:
 
-1. The data is ready in Keywords AI's backend
+1. The data is ready in Respan's backend
 ```json
 {
     "some":"data"
 }
 ```
-2. The Keywords AI encodes the data with your API Key string retrieved from the action's header (we don't store your API key) that triggers the webhook, using [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.
+2. The Respan encodes the data with your API Key string retrieved from the action's header (we don't store your API key) that triggers the webhook, using [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.
 ```Python
 import hmac
 import json
@@ -31,17 +31,17 @@ signature = hmac.new(
     "sha256"
 ).hexdigest()
 ```
-3. The signature is then passed to `X-Keywordsai-Signature`. This is **case sensitive**.
+3. The signature is then passed to `X-Respan-Signature`. This is **case sensitive**.
 ```json
 // Some header
 {
-    "X-Keywordsai-Signature": "2217632f28bdfc939977d00790f1c8cc9997c23ab36de810ae7e4fecdb310603"
+    "X-Respan-Signature": "2217632f28bdfc939977d00790f1c8cc9997c23ab36de810ae7e4fecdb310603"
 }
 ```
 4. You can verify then data and accept or reject the payload
 ```Python
-secret_key = YOUR_KEYWORDS_AI_API_KEY
-signature = request.headers.get("x-keywordsai-signature")
+secret_key = YOUR_RESPAN_API_KEY
+signature = request.headers.get("x-respan-signature")
 compare_signature = hmac.new(secret_key.encode(), msg=stringify_data.encode(), digestmod="sha256").hexdigest()
 
 if compare_signature != signature:
@@ -52,17 +52,17 @@ if compare_signature != signature:
 
 Instead of using your API key for webhook signature verification, you can use a dedicated webhook secret. This provides better security by allowing you to use a separate secret specifically for webhook validation without exposing your API key.
 
-When creating or editing a webhook in the Keywords AI platform, you can copy the webhook secret and use it for signing the signature instead of using the API key.
+When creating or editing a webhook in the Respan platform, you can copy the webhook secret and use it for signing the signature instead of using the API key.
 
 <Frame className="rounded-md">
 <img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/documentation/products/notifications/webhooks/webhook_secret_v0.png" alt="webhook_secret_v0" />
 </Frame>
 
-To use the webhook secret, simply replace `YOUR_KEYWORDS_AI_API_KEY` with your webhook secret in the verification code:
+To use the webhook secret, simply replace `YOUR_RESPAN_API_KEY` with your webhook secret in the verification code:
 
 ```Python
 secret_key = YOUR_WEBHOOK_SECRET  # Use webhook secret instead of API key
-signature = request.headers.get("x-keywordsai-signature")
+signature = request.headers.get("x-respan-signature")
 compare_signature = hmac.new(secret_key.encode(), msg=stringify_data.encode(), digestmod="sha256").hexdigest()
 
 if compare_signature != signature:
@@ -83,8 +83,8 @@ class TestWebhook(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
         stringify_data = json.dumps(data)
-        secret_key = os.getenv("KEYWORDS_AI_API_KEY")
-        signature = request.headers.get("x-keywords-signature")
+        secret_key = os.getenv("RESPAN_API_KEY")
+        signature = request.headers.get("x-respan-signature")
         compare_signature = hmac.new(secret_key.encode(), msg=stringify_data.encode(), digestmod="sha256").hexdigest()
         
         if compare_signature != signature:
@@ -99,8 +99,8 @@ class TestWebhook(APIView):
         return Response({"message": "Webhook received."}, status=200)
 ```
 
-2. Create a new webhook in the Keywords AI platform.
-    1. Go to the [Webhooks page](https://platform.keywordsai.co/platform/api/webhooks) in the Keywords AI platform.
+2. Create a new webhook in the Respan platform.
+    1. Go to the [Webhooks page](https://platform.respan.ai/platform/api/webhooks) in the Respan platform.
     2. Click on the "Create Webhook" button, a modal will appear.
     <img src="/images/api-features/webhooks/webhook_options.png" />
     3. Define the webhook URL. In this demo, it is `http://localhost:8000/api/webhook/`.

@@ -1,16 +1,16 @@
 ---
 title: "Fallback models"
-description: "This is the guide for how to set up fallbacks in Keywords AI"
+description: "This is the guide for how to set up fallbacks in Respan"
 ---
 
-Keywords AI will catch any errors occurring in a request to model and fall back to the list of models you specified in the `fallback_models` field. This is useful to avoid downtime and ensure that your application is always available.
+Respan will catch any errors occurring in a request to model and fall back to the list of models you specified in the `fallback_models` field. This is useful to avoid downtime and ensure that your application is always available.
 
-See all Keywords AI params [here](/api-endpoints/develop/gateway/chat-completions#keywords-ai-parameters).
+See all Respan params [here](/api-endpoints/develop/gateway/chat-completions#respan-parameters).
 
 ## Set up fallbacks
 Fallback models can be set up in the UI or in the code. You can add multiple fallback models to the list, we will try each model in the order they are listed.
 ### Set up fallbacks from the UI
-Go to Settings -> [Fallback](https://platform.keywordsai.co/platform/api/fallback) -> Click on `Add fallback models` -> Select the models you want to add as fallbacks.
+Go to Settings -> [Fallback](https://platform.respan.ai/platform/api/fallback) -> Click on `Add fallback models` -> Select the models you want to add as fallbacks.
 
 You can drag and drop the models to reorder them. The order of the models in the list is the order in which they will be tried.
 <Frame>
@@ -24,8 +24,8 @@ You can drag and drop the models to reorder them. The order of the models in the
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.keywordsai.co/api/",
-    api_key="YOUR_KEYWORDSAI_API_KEY",
+    base_url="https://api.respan.ai/api/",
+    api_key="YOUR_RESPAN_API_KEY",
 )
 
 response = client.chat.completions.create(
@@ -45,8 +45,8 @@ In OpenAI TypeScript SDK, you should add a `// @ts-expect-error` before the `fal
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.keywordsai.co/api",
-  apiKey: "YOUR_KEYWORDSAI_API_KEY",
+  baseURL: "https://api.respan.ai/api",
+  apiKey: "YOUR_RESPAN_API_KEY",
 });
 
 const response = await client.chat.completions
@@ -66,7 +66,7 @@ console.log(await response.json());
 import requests
 def demo_call(input, 
               model="gpt-4o-mini",
-              token="YOUR_KEYWORDS_AI_API_KEY",
+              token="YOUR_RESPAN_API_KEY",
               ):
     headers = {
         'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ def demo_call(input,
         'fallback_models': ["claude-3-5-sonnet-20240620", "gemini-1.5-pro-002"]
     }
 
-    response = requests.post('https://api.keywordsai.co/api/chat/completions', headers=headers, json=data)
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
     return response
 
 messages = "Say 'Hello World'"
@@ -94,7 +94,7 @@ We also support adding credentials in other SDKs or languages, please check out 
 
 We use Saftey net to automatically fallback to a system assigned model if fallback models are not responding or specified.
 
-Turn on the Safety net [here](https://platform.keywordsai.co/platform/api/fallback). */}
+Turn on the Safety net [here](https://platform.respan.ai/platform/api/fallback). */}
 
 ## Troubleshooting
 - You turned off Fallbacks in the UI
@@ -109,11 +109,11 @@ Below is the pseudo-code for the fallback logic with retries:
 ```python
 warnings = {}
 model = "model_in_request_that_will_fail"
-keywords_native_failover = keywords_ai_models_data[model]["fallback"] # A slice of data from our database for the native failover
+respan_native_failover = respan_models_data[model]["fallback"] # A slice of data from our database for the native failover
 # Native failovers usually are the same models, but just from different providers, they are optimally ranked to reduce cost and latency
-fallback_models = [*keywords_native_failover, "model1", "model2"]
+fallback_models = [*respan_native_failover, "model1", "model2"]
 
-# Keywords AI will filter away models that do not meet the hard requirements of the request (function_calling support, etc.)
+# Respan will filter away models that do not meet the hard requirements of the request (function_calling support, etc.)
 # To save time from unnecessary retries
 fallback_models = filter_by_hard_requirements(request, fallback_models)
 
@@ -123,7 +123,7 @@ for model in fallback_models:
         response = generate_response_with_load_balance(model)
         break
     except Exception as e:
-        error_code, error_message = keywords_ai_exception_handler(e)
+        error_code, error_message = respan_exception_handler(e)
         warnings[model] = error_message
 raise Exception("All models failed", warnings)
 ```

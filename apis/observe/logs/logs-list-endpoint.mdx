@@ -1,0 +1,603 @@
+---
+title: List logs
+api: POST https://api.respan.ai/api/request-logs/list/
+---
+
+The Logs List endpoint allows you to retrieve past logs with specified filters.
+
+<Note>
+Both `GET` and `POST` methods are supported for listing logs. `POST` is recommended when using complex filters or when URL length limits might be exceeded. The same endpoint is also available at `/api/request-logs/` (without `/list/`).
+</Note>
+
+## Response fields
+
+Each log in the response includes:
+
+### Universal fields (All Span Types)
+- **`input`** (string): JSON-serialized representation of the span's input data
+- **`output`** (string): JSON-serialized representation of the span's output data
+- **`log_type`** (string): Type of span (`"chat"`, `"embedding"`, `"workflow"`, etc.)
+
+### Evaluation Scores
+- **`scores`** (object): Map of evaluator scores `{ evaluator_id: score_data }`
+  - Each evaluator's score includes:
+    - **`evaluator_name`** (string): Name of the evaluator
+    - **`evaluator_slug`** (string): Slug identifier for the evaluator
+    - **`score_value`** (float): Numerical or boolean score value (booleans represented as 0.0 or 1.0)
+
+<Note>
+### Legacy compatibility
+For `log_type="chat"`, `"completion"`, `"text"`, or `"response"`:
+- **`prompt_messages`** (array): Full input messages array (extracted from `input`)
+- **`completion_message`** (object): Full output message object (extracted from `output`)
+
+For other span types (embedding, workflow, etc.), type-specific fields are extracted based on the `log_type`. See [log types](/get-started/observability_data_model#log-types) for details.
+</Note>
+
+
+## Query parameters
+You can add these parameters to the **URL query string**.
+For example:
+```
+"https://api.respan.ai/api/request-logs/list/?page=1&sort_by=-id&is_test=false&all_envs=false&fetch_filters=false&page_size=1"
+```
+<ParamField query="start_time" type="string" required>
+  The start time for filtering logs in ISO 8601 format. If not provided, defaults to 1 hour ago.
+  <Accordion title="Example">
+    ```json
+    {
+      "start_time": "2025-08-15T00:00:00" // ISO 8601 format
+    }
+    ```
+  </Accordion>
+</ParamField>
+
+<ParamField query="end_time" type="string" required>
+  The end time for filtering logs in ISO 8601 format. If not provided, defaults to current time.
+  <Accordion title="Example">
+    ```json
+    {
+      "end_time": "2025-08-16T00:00:00" // ISO 8601 format
+    }
+    ```
+  </Accordion>
+</ParamField>
+
+<ParamField query="sort_by" type="string" required>
+  The field to sort by. Default is `-id` (same as sort by `-timestamp`, but with better performance).
+  `-` is for descending order, if not provided, it will be in ascending order.
+  <AccordionGroup>
+    <Accordion title="Properties">
+        <ParamField body="id" type="string">
+            Sort by the ID of each request.
+        </ParamField>
+        <ParamField body="cost" type="string">
+            Sort by the cost of each request.
+        </ParamField>
+        <ParamField body="time_to_first_token" type="string">
+           TTFT - useful for Voice AI applications
+        </ParamField>
+        <ParamField body="latency" type="string">
+          Generation time of each request.
+        </ParamField>
+        <ParamField body="prompt_tokens" type="string">
+          Input / prompt tokens of each request.
+        </ParamField>
+        <ParamField body="completion_tokens" type="string">
+          Output / completion tokens of each request.
+        </ParamField>
+        <ParamField body="all_tokens" type="string">
+          Total tokens of each request.
+        </ParamField>
+        <ParamField body="scores__<evaluator_id>" type="string">
+          Sort by evaluator score. Use the evaluator's UUID as the suffix. Example: `scores__d4f46e95-73ff-4166-8581-928c1a1b1589`
+        </ParamField>
+    </Accordion>
+    <Accordion title="Example">
+    ```json
+    {
+      "sort_by": "cost" //sort by cost in ascending order.
+    }
+    ```
+    </Accordion>
+</AccordionGroup>
+</ParamField>
+<ParamField query="all_envs" type="string" default="false">
+  Whether to include logs from all environments. `is_test` parameter will override this parameter.
+  Options: `true`, `false`.
+</ParamField>
+
+<ParamField query="is_test" type="string" default="false">
+  Whether the log is a test call or not. This parameter will override the `all_envs` parameter.
+  Options: `true`, `false`.
+</ParamField>
+
+<ParamField query="fetch_filters" type="string" default="false">
+  Whether to retrieve the available filtering options. Enabling this could slow down the response time.
+  Options: `true`, `false`.
+</ParamField>
+
+<ParamField query="page_size" type="number" default={100}>
+  The number of logs to return per page. Maximum is 1000.
+</ParamField>
+
+<ParamField query="page" type="number" default={1}>
+  The page number of the current logs.
+</ParamField>
+
+<ParamField query="include_fields" type="string">
+  Comma separated fields to be included in the response logs. This parameter allows you to specify which fields should be returned to improve performance and reduce response size.
+  <Note>
+    include_fields guarantees the listed fields will be present in each log item, but it does not enforce exclusivity. The API may still return additional fields required for the endpoint (e.g., identifiers, pagination-related fields, or internal metadata).
+  </Note>
+  <Accordion title="Example">
+    ```
+    include_fields=custom_identifier,customer_identifier,id,latency
+    ```
+  </Accordion>
+</ParamField>
+
+## URL-based Filtering (Quick Filters)
+
+You can filter logs directly via URL query parameters without constructing POST body filters. This is useful for sharing filtered views, bookmarking, or building dynamic filter links.
+
+### Basic Syntax
+
+**Simple filtering:**
+```
+?<field>=<value>
+```
+
+**Advanced filtering with operators:**
+```
+?<field>[value]=<value>&<field>[operator]=<operator>&<field>[connector]=<connector>
+```
+
+### Parameters
+
+- **`[value]`**: The filter value (required)
+- **`[operator]`**: Comparison operator (optional, defaults to `""` for equality)
+  - `""` (empty): Exact match (is)
+  - `"not"`: Not equal (is not)
+- **`[connector]`**: Logic connector (optional, defaults to `"AND"`)
+  - `"AND"`: Combine with previous filter using AND
+  - `"OR"`: Combine with previous filter using OR
+
+### Field Auto-Detection
+
+The system automatically detects how to handle each URL parameter:
+
+1. **Pagination/Sort parameters**: Skipped (page, page_size, sort_by, etc.)
+2. **Metadata fields starting with "metadata__"**: Filter custom metadata
+3. **Known log fields**: Filter directly on that field
+4. **Unknown fields**: Treated as custom metadata (auto-prefix "metadata__")
+
+### Known Log Fields
+
+These fields can be filtered directly without the `metadata__` prefix:
+
+- **Identifiers**: `customer_identifier`, `custom_identifier`, `thread_identifier`, `prompt_id`, `unique_id`
+- **Tracing**: `trace_unique_id`, `span_name`, `span_workflow_name`
+- **Provider/Model**: `model`, `deployment_name`, `provider_id`
+- **Status**: `status_code`, `status`, `error_message`
+- **Config**: `environment`, `log_type`, `stream`, `temperature`, `max_tokens`
+- **Metrics**: `cost`, `latency`, `tokens_per_second`, `time_to_first_token`, `prompt_tokens`, `completion_tokens`, `total_request_tokens`
+
+### Map-type Fields (Double Underscore Prefix)
+
+- **Custom metadata**: `metadata__<key>` - Filter on custom metadata properties
+- **Evaluator scores**: `scores__<evaluator_id>` - Filter/sort by evaluation scores (see below)
+
+### URL Filter Examples
+
+<AccordionGroup>
+  <Accordion title="Filter by customer identifier">
+    ```bash
+    GET /api/request-logs/list/?customer_identifier=user_123
+    ```
+  </Accordion>
+
+  <Accordion title="Filter with operator (status code not equal to 200)">
+    ```bash
+    GET /api/request-logs/list/?status_code[value]=200&status_code[operator]=not
+    ```
+  </Accordion>
+
+  <Accordion title="Filter by custom metadata (auto-detected)">
+    ```bash
+    # This automatically becomes: metadata__event_id = "xxx"
+    GET /api/request-logs/list/?event_id=xxx
+    ```
+  </Accordion>
+
+  <Accordion title="Explicit metadata filter">
+    ```bash
+    GET /api/request-logs/list/?metadata__user_type=premium
+    ```
+  </Accordion>
+
+  <Accordion title="Multiple filters with OR logic">
+    ```bash
+    # (status_code = 200) OR (metadata__priority != "low")
+    GET /api/request-logs/list/?status_code[value]=200&status_code[connector]=OR&priority[value]=low&priority[operator]=not&priority[connector]=OR
+    ```
+  </Accordion>
+
+  <Accordion title="Mixed known and unknown fields">
+    ```bash
+    # customer_identifier = "abc" AND metadata__event_id = "xxx" AND model = "gpt-4"
+    GET /api/request-logs/list/?customer_identifier=abc&event_id=xxx&model=gpt-4
+    ```
+  </Accordion>
+</AccordionGroup>
+
+### Combining URL and POST Body Filters
+
+URL filters and POST body filters can be combined. When there's an overlap, URL filters take precedence.
+
+<Accordion title="Example: Combined filters">
+  ```bash
+  curl -X POST "https://api.respan.ai/api/request-logs/list/?customer_identifier=user_123" \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "filters": {
+        "status_code": {
+          "operator": "",
+          "value": [200]
+        }
+      }
+    }'
+  ```
+  This applies:
+  - `customer_identifier = "user_123"` (from URL)
+  - `status_code = 200` (from POST body)
+</Accordion>
+
+### Limitations
+
+- URL filters support only equality (`""`) and not-equal (`"not"`) operators
+- For complex operators (`gt`, `gte`, `lt`, `lte`, `contains`, etc.), use POST body filters
+- Each field can only have one value in URL (no arrays)
+- All URL values are treated as strings
+
+## Sorting and Filtering by Evaluation Scores
+
+You can sort and filter logs by evaluator scores using the `scores__` prefix pattern (consistent with `metadata__` filtering).
+
+### Sorting by Scores
+
+```bash
+# Sort by a specific evaluator (use evaluator_id from scores object)
+?sort_by=-scores__abc-123-def-456  # Descending (highest scores first)
+?sort_by=scores__abc-123-def-456   # Ascending (lowest scores first)
+```
+
+**How to find your evaluator_id:**
+- The `evaluator_id` is the key in the `scores` object returned in log responses
+- It's the same as the UUID of the evaluator in your organization
+- Example: If your scores object has `"d4f46e95-73ff-4166-8581-928c1a1b1589": {...}`, use `sort_by=-scores__d4f46e95-73ff-4166-8581-928c1a1b1589`
+
+### Filtering by Scores
+
+Use POST body filters to filter logs by score values:
+
+<AccordionGroup>
+  <Accordion title="Filter logs with score greater than 4.0">
+    ```bash
+    curl -X POST "https://api.respan.ai/api/request-logs/list/" \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "filters": {
+          "scores__abc-123-def-456": {
+            "operator": "gt",
+            "value": [4.0]
+          }
+        }
+      }'
+    ```
+  </Accordion>
+
+  <Accordion title="Filter logs with score less than or equal to 2.0">
+    ```bash
+    curl -X POST "https://api.respan.ai/api/request-logs/list/" \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "filters": {
+          "scores__abc-123-def-456": {
+            "operator": "lte",
+            "value": [2.0]
+          }
+        }
+      }'
+    ```
+  </Accordion>
+</AccordionGroup>
+
+**Supported operators for score filters:**
+- `""` (empty): Equal to
+- `"gt"`: Greater than
+- `"gte"`: Greater than or equal
+- `"lt"`: Less than
+- `"lte"`: Less than or equal
+- `"not"`: Not equal to
+
+**Note:** Score filtering and sorting leverage ClickHouse Map type indexes for efficient queries on large datasets.
+
+## Body parameters
+You can add these parameters to the **request body**:
+```python
+url = "https://api.respan.ai/api/request-logs/list/"
+headers = {
+    "Authorization": f"Bearer {YOUR_RESPAN_API_KEY}",
+}
+data = {
+    "filters":    {
+      "cost": {
+        "operator": "gt",
+        "value": [0.01]
+      },
+    }
+}
+response = requests.post(url, headers=headers, json=data)
+```
+
+<ParamField body="filters" type="object" default={{}}>
+  The filters be applied to the logs. For available options in the response body, use the `fetch_filters` parameter.
+
+<Note>If you want to filter your custom properties, you should add `metadata__`+ your custom property name. For example, if you want to filter your custom property `my_custom_property`, you should add `metadata__my_custom_property` to the filters.</Note>
+<Accordion title="Example">
+  ```json
+    {
+      "name_of_metric": {
+        "operator": "gt",
+        "value": [100]
+      },
+    }
+```
+
+  </Accordion>
+</ParamField>
+
+<ParamField body="operator" type="string" required>
+  Default is "" (equal).
+  
+  <Note>
+  For a complete list of filter operators and examples, see the [Filters API Reference](/api-endpoints/reference/filters_api_reference).
+  </Note>
+  
+  <Accordion title="Properties">
+        <ParamField body=" " type="string">
+            Equal
+            <Accordion title="Example">
+            ```json
+            {
+              "name_of_metric": {
+                "operator": "", // equal
+                "value": [100]
+              },
+            }
+            ```
+            </Accordion>
+        </ParamField>
+        <ParamField body="iexact" type="string">
+            case insensitive equal
+        </ParamField>
+        <ParamField body="lt" type="string">
+           Less than
+        </ParamField>
+        <ParamField body="lte" type="string">
+           Less than or equal
+        </ParamField>
+        <ParamField body="gt" type="string">
+          Greater than
+        </ParamField>
+        <ParamField body="gte" type="string">
+          Greater than or equal
+        </ParamField>
+        <ParamField body="contains" type="string">
+          Contains
+        </ParamField>
+        <ParamField body="endswith" type="string">
+          Ends with
+        </ParamField>
+        <ParamField body="startswith" type="string">
+          Starts with
+        </ParamField>
+        <ParamField body="in" type="string">
+          Can be used in arrays or text
+        </ParamField>
+        <ParamField body="isnull" type="string">
+          Check if the field is null
+        </ParamField>
+        <ParamField body="icontains" type="string">
+          Case insensitive contains
+        </ParamField>
+        <ParamField body="not" type="string">
+          Not equal
+        </ParamField>
+    </Accordion>
+
+</ParamField>
+
+<RequestExample>
+
+```python Python
+url = "https://api.respan.ai/api/request-logs/list/?page=1&sort_by=-id&is_test=false&all_envs=false&fetch_filters=false&page_size=1"
+
+
+from urllib.parse import urlencode
+params = {
+    "page": 1,
+    "sort_by": "-id",
+    "is_test": "false",
+    "all_envs": "false",
+    "fetch_filters": "false",
+    "page_size": 1
+}
+url = f"https://api.respan.ai/api/request-logs/list/?{urlencode(params)}"
+headers = {
+    "Authorization": f"Bearer {YOUR_RESPAN_API_KEY}",
+}
+data = {
+    "filters": {}
+}
+response = requests.post(url, headers=headers, json=data)
+```
+
+```typescript TypeScript
+const url = 'https://api.respan.ai/api/request-logs/list/';
+
+const params = new URLSearchParams({
+    page: '1',
+    sort_by: '-id',
+    is_test: 'false',
+    all_envs: 'false',
+    fetch_filters: 'false',
+    page_size: '1'
+}).toString();
+
+const fullUrl = `${url}?${params}`;
+
+const headers = {
+    'Authorization': `Bearer ${YOUR_RESPAN_API_KEY}`,
+    'Content-Type': 'application/json'
+};
+
+const data = {
+    filters: {}
+};
+
+fetch(fullUrl, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+})
+```
+```bash cURL
+curl -X POST "https://api.respan.ai/api/request-logs/list/?page=1&sort_by=-id&is_test=false&all_envs=false&fetch_filters=false&page_size=1" \
+-H "Authorization: Bearer YOUR_RESPAN_API_KEY" \
+-H "Content-Type: application/json" \
+-d '{"filters": {}}'
+
+```
+
+```bash cURL (with URL filters)
+# Filter by customer identifier using URL parameter
+curl -X GET "https://api.respan.ai/api/request-logs/list/?customer_identifier=user_123&page_size=10" \
+-H "Authorization: Bearer YOUR_RESPAN_API_KEY"
+```
+
+```bash cURL (URL filters + POST body)
+# Combine URL and POST body filters
+curl -X POST "https://api.respan.ai/api/request-logs/list/?customer_identifier=user_123&event_id=xxx" \
+-H "Authorization: Bearer YOUR_RESPAN_API_KEY" \
+-H "Content-Type: application/json" \
+-d '{
+  "filters": {
+    "cost": {
+      "operator": "gte",
+      "value": [0.01]
+    }
+  }
+}'
+```
+
+```bash cURL (custom metadata via URL)
+# Filter by custom metadata fields
+curl -X GET "https://api.respan.ai/api/request-logs/list/?user_tier=premium&department=sales" \
+-H "Authorization: Bearer YOUR_RESPAN_API_KEY"
+```
+</RequestExample>
+<ResponseExample>
+```json
+{
+    "count": 1250,
+    "next": "https://api.respan.ai/api/request-logs/list/?page=2",
+    "previous": null,
+    "results": [
+       {
+        "unique_id": "xxxxx",
+        "organization_key__name": "Respan Default",
+        "organization": "Respan",
+        "user": "hendrix@respan.ai",
+        "is_example": false,
+        "status": "success",
+        "log_type": "chat",
+        
+        // Universal fields (all span types)
+        "input": "[{\"role\":\"system\",\"content\":\"You are a helpful assistant\"},{\"role\":\"user\",\"content\":\"What is Respan?\"}]",
+        "output": "{\"role\":\"assistant\",\"content\":\"Respan is a unified DevOps platform for AI products.\"}",
+        
+        // Type-specific fields (extracted from input/output for chat types)
+        "prompt_messages": [
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant"
+                },
+                {
+                    "role": "user",
+                    "content": "What is Respan?"
+                }
+        ],
+        "completion_message": {
+                "role": "assistant",
+                "content": "Respan is a unified DevOps platform for AI products."
+        },
+        
+        // Telemetry
+        "prompt_tokens": 452,
+        "completion_tokens": 89,
+        "cost": 0.0005869,
+        "latency": 1.2114145755767822,
+        "time_to_first_token": null,
+        "tokens_per_second": 73.4,
+        "routing_time": 0.0,
+        
+        // Model info
+        "model": "gpt-3.5-turbo",
+        "foundation_model": "gpt-3.5-turbo",
+        "provider_id": "openai",
+        
+        // Function calling
+        "tool_choice": null,
+        "tools": null,
+        "tool_calls": null,
+        
+        // Metadata
+        "timestamp": "2024-06-24T21:33:06.601353Z",
+        "metadata": {
+            // any custom params you passed
+        },
+        "customer_identifier": "123456",
+        "customer_email": "",
+        "thread_identifier": null,
+        "custom_identifier": null,
+        "trace_unique_id": null,
+        
+        // Evaluation Scores
+        "scores": {
+            "evaluator-id-123": {
+                "evaluator_name": "Response Quality",
+                "evaluator_slug": "response_quality",
+                "score_value": 4.5
+            }
+        },
+        
+        // Status
+        "failed": false,
+        "stream": false,
+        "status_code": 200,
+        "used_custom_credential": false
+       }
+    ]
+}
+
+```
+</ResponseExample>

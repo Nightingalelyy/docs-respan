@@ -30,7 +30,7 @@ The user-level rate limit helps you control the LLM usage of each user. You can 
 import requests
 def demo_call(input, 
               model="gpt-4o-mini",
-              token="YOUR_KEYWORDS_AI_API_KEY"
+              token="YOUR_RESPAN_API_KEY"
               ):
     headers = {
         'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ def demo_call(input,
         "customer_params": {"customer_identifier": "xxxx", "rate_limit": 100}
     }
 
-    response = requests.post('https://api.keywordsai.co/api/chat/completions', headers=headers, json=data)
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
     return response
 
 messages = "Say 'Hello World'"
@@ -52,11 +52,11 @@ print(demo_call(messages).json())
 
 
 ```TypeScript TypeScript {10}
-fetch('https://api.keywordsai.co/api/chat/completions', {
+fetch('https://api.respan.ai/api/chat/completions', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer YOUR_KEYWORDS_AI_API_KEY'
+    'Authorization': 'Bearer YOUR_RESPAN_API_KEY'
   },
     body: JSON.stringify({
         model: 'gpt-4o-mini',
@@ -76,8 +76,8 @@ fetch('https://api.keywordsai.co/api/chat/completions', {
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.keywordsai.co/api/",
-    api_key=YOUR_KEYWORDSAI_API_KEY,
+    base_url="https://api.respan.ai/api/",
+    api_key=YOUR_RESPAN_API_KEY,
 )
 
 response = client.chat.completions.create(
@@ -91,8 +91,8 @@ response = client.chat.completions.create(
 import { OpenAI } from "openai";
 
 const client = new OpenAI({
-  baseURL: "https://api.keywordsai.co/api",
-  apiKey: process.env.KEYWORDS_AI_API_KEY,
+  baseURL: "https://api.respan.ai/api",
+  apiKey: process.env.RESPAN_API_KEY,
 });
 
 const response = await client.chat.completions

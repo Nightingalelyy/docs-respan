@@ -1,0 +1,140 @@
+---
+title: "initialize()"
+description: "Initialize the Respan telemetry client"
+---
+
+## Overview
+
+The `initialize()` method sets up the tracing client and establishes connection to Respan. This must be called before using any tracing methods.
+
+## Signature
+
+```typescript
+async initialize(): Promise<void>
+```
+
+## Basic Usage
+
+```typescript
+import { RespanTelemetry } from '@respan/tracing';
+
+const respanAi = new RespanTelemetry({
+    apiKey: process.env.RESPAN_API_KEY,
+    appName: 'my-app'
+});
+
+// Initialize before using any tracing methods
+await respanAi.initialize();
+
+// Now ready to use
+await respanAi.withWorkflow(
+    { name: 'my_workflow' },
+    async () => {
+        return 'ready';
+    }
+);
+```
+
+## Constructor Options
+
+```typescript
+const respanAi = new RespanTelemetry({
+    apiKey: string;              // Required: Your Respan API key
+    baseURL?: string;            // Optional: API base URL (default: https://api.respan.ai)
+    appName?: string;            // Optional: Application name for identification
+    instrumentModules?: {        // Optional: Modules to auto-instrument
+        openAI?: typeof OpenAI;
+        anthropic?: typeof Anthropic;
+    };
+    disableBatch?: boolean;      // Optional: Send spans immediately (default: false)
+    logLevel?: string;           // Optional: 'debug' | 'info' | 'warn' | 'error' (default: 'warn')
+});
+```
+
+## Complete Example
+
+```typescript
+import { RespanTelemetry } from '@respan/tracing';
+import OpenAI from 'openai';
+
+const respanAi = new RespanTelemetry({
+    apiKey: process.env.RESPAN_API_KEY,
+    baseURL: 'https://api.respan.ai',
+    appName: 'production-app',
+    instrumentModules: {
+        openAI: OpenAI,  // Auto-instrument OpenAI
+    },
+    disableBatch: false,
+    logLevel: 'info'
+});
+
+// Initialize the client
+await respanAi.initialize();
+console.log('Respan Tracing initialized successfully');
+
+// Use tracing
+await respanAi.withWorkflow(
+    { name: 'user_request' },
+    async () => {
+        // Your code here
+    }
+);
+
+// Shutdown gracefully when done
+await respanAi.shutdown();
+```
+
+## Environment Variables
+
+You can also configure using environment variables:
+
+```bash .env
+RESPAN_API_KEY=your-api-key
+RESPAN_BASE_URL=https://api.respan.ai
+```
+
+```typescript
+const respanAi = new RespanTelemetry({
+    apiKey: process.env.RESPAN_API_KEY,
+    baseURL: process.env.RESPAN_BASE_URL,
+    appName: 'my-app'
+});
+
+await respanAi.initialize();
+```
+
+## Configuration Options
+
+<ParamField body="apiKey" type="string" required>
+  Your Respan API key from the dashboard
+</ParamField>
+
+<ParamField body="baseURL" type="string" default="https://api.respan.ai">
+  Respan API base URL
+</ParamField>
+
+<ParamField body="appName" type="string">
+  Application name for identifying traces in the dashboard
+</ParamField>
+
+<ParamField body="instrumentModules" type="object">
+  Modules to automatically instrument:
+  - `openAI`: OpenAI SDK class
+  - `anthropic`: Anthropic SDK class
+</ParamField>
+
+<ParamField body="disableBatch" type="boolean" default={false}>
+  If true, sends spans immediately instead of batching them
+</ParamField>
+
+<ParamField body="logLevel" type="string" default="warn">
+  Logging verbosity: `"debug"`, `"info"`, `"warn"`, `"error"`
+</ParamField>
+
+## Best Practices
+
+- Always call `initialize()` before using any tracing methods
+- Initialize once at application startup
+- Use environment variables for sensitive configuration
+- Call `shutdown()` before application exit to flush pending spans
+- Enable auto-instrumentation for supported SDKs

@@ -1,0 +1,111 @@
+---
+title: "Logging via API"
+description: "Send your LLM logs to Respan and monitor them in real-time"
+---
+
+## What is logging?
+
+1. Send a `POST` request to log your AI conversations
+2. See them appear instantly on your Respan platform
+
+<Frame className="rounded-md">
+<img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/observability/overview/logs.jpg" />
+</Frame>
+
+
+
+## Use logging API
+### 1. Get your Respan API key
+
+After you create an account on [Respan](https://platform.respan.ai), you can get your API key from the [API keys page](https://platform.respan.ai/platform/api/api-keys).
+
+<Frame className="rounded-md">
+<img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/get-started/api-keys.png" alt="Create API key placeholder" />
+</Frame>
+
+### 2. Integrate Async Logging into your codebase
+
+<CodeGroup>
+```python Python {22}
+import requests
+import json
+
+url = "https://api.respan.ai/api/request-logs/create/"
+payload = {
+    "model": "gpt-4o",
+    "log_type": "chat",
+    "input": json.dumps([
+        {
+            "role": "user",
+            "content": "How can I help a customer with a billing issue?"
+        }
+    ]),
+    "output": json.dumps({
+        "role": "assistant",
+        "content": "I'd be happy to help with billing issues. First, let me check your account details..."
+    }),
+    "customer_identifier": "support_agent_001"
+}
+
+headers = {
+    "Authorization": "Bearer YOUR_RESPAN_API_KEY",
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, headers=headers, json=payload)
+```
+
+```typescript TypeScript {3}
+const url = 'https://api.respan.ai/api/request-logs/create/';
+const headers = {
+    'Authorization': 'Bearer YOUR_RESPAN_API_KEY',
+    'Content-Type': 'application/json'
+};
+
+const payload = {
+    model: 'gpt-4o',
+    log_type: 'chat',
+    input: JSON.stringify([
+        {
+            role: "user",
+            content: "How can I help a customer with a billing issue?"
+        }
+    ]),
+    output: JSON.stringify({
+        role: "assistant",
+        content: "I'd be happy to help with billing issues. First, let me check your account details..."
+    }),
+    customer_identifier: "support_agent_001"
+};
+
+fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(payload)
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+});
+```
+
+```bash cURL {3}
+curl -X POST "https://api.respan.ai/api/request-logs/create/" \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer YOUR_RESPAN_API_KEY" \
+-d '{
+    "model": "gpt-4o",
+    "log_type": "chat",
+    "input": "[{\"role\":\"user\",\"content\":\"How can I help a customer with a billing issue?\"}]",
+    "output": "{\"role\":\"assistant\",\"content\":\"I'\''d be happy to help with billing issues. First, let me check your account details...\"}",
+    "customer_identifier": "support_agent_001"
+}'
+```
+</CodeGroup>
+
+
+### 3. Check your logs on the platform
+After you integrate the async logging into your codebase and send the request successfully, you can check your logs on the [Logs page](https://platform.respan.ai/platform/requests).
+<Frame className="rounded-md">
+<img src="https://keywordsai-static.s3.us-east-1.amazonaws.com/docs/documentation/get-started/logging_showlog.png" alt="Logs page placeholder" />
+</Frame>

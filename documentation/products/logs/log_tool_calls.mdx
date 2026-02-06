@@ -1,9 +1,9 @@
 ---
 title: "Log tool calls"
-description: "How to log tool calls and function calling interactions with Keywords AI"
+description: "How to log tool calls and function calling interactions with Respan"
 ---
 
-Keywords AI allows you to log tool calls and function calling interactions for monitoring, debugging, and analytics purposes.
+Respan allows you to log tool calls and function calling interactions for monitoring, debugging, and analytics purposes.
 
 Tool calls enable AI models to interact with external functions and APIs. Logging these interactions helps you:
 
@@ -19,9 +19,9 @@ Here's a minimal example focusing just on the tool-related fields:
 ```python
 import requests
 
-url = "https://api.keywordsai.co/api/request-logs/create/"
+url = "https://api.respan.ai/api/request-logs/create/"
 headers = {
-    "Authorization": "Bearer YOUR_KEYWORDS_AI_API_KEY",
+    "Authorization": "Bearer YOUR_RESPAN_API_KEY",
     "Content-Type": "application/json"
 }
 
@@ -91,7 +91,7 @@ response = requests.post(url, headers=headers, json=payload)
 
 ## Viewing Tool Call Logs
 
-Tool call logs appear in your Keywords AI dashboard with:
+Tool call logs appear in your Respan dashboard with:
 
 - Function names and arguments
 - Execution results and errors
@@ -107,9 +107,9 @@ Here's a full example with all available parameters:
 ```python
 import requests
 
-url = "https://api.keywordsai.co/api/request-logs/create/"
+url = "https://api.respan.ai/api/request-logs/create/"
 headers = {
-    "Authorization": "Bearer YOUR_KEYWORDS_AI_API_KEY",
+    "Authorization": "Bearer YOUR_RESPAN_API_KEY",
     "Content-Type": "application/json"
 }
 payload = {

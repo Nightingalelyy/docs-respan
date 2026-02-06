@@ -26,7 +26,7 @@ If you want the raw endpoint specs, see the [Datasets API reference](/api-endpoi
 ### Prerequisites
 
 - **API key**: `Authorization: Bearer YOUR_API_KEY`
-- **Base URL**: `https://api.keywordsai.co`
+- **Base URL**: `https://api.respan.ai`
 
 <Tip>
 If you’re starting from scratch, the easiest path is: **create an empty dataset** → **POST dataset logs** (unified format).
@@ -48,7 +48,7 @@ import requests
 
 API_KEY = "YOUR_API_KEY"
 
-url = "https://api.keywordsai.co/api/datasets/"
+url = "https://api.respan.ai/api/datasets/"
 payload = {
   "name": "Demo Dataset (via API)",
   "description": "Created from docs tutorial",
@@ -62,7 +62,7 @@ print("dataset_id:", dataset["id"])
 ```
 
 ```bash cURL
-curl -X POST "https://api.keywordsai.co/api/datasets/" \
+curl -X POST "https://api.respan.ai/api/datasets/" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -90,7 +90,7 @@ import requests
 API_KEY = "YOUR_API_KEY"
 dataset_id = "YOUR_DATASET_ID"
 
-url = f"https://api.keywordsai.co/api/datasets/{dataset_id}/logs/"
+url = f"https://api.respan.ai/api/datasets/{dataset_id}/logs/"
 payload = {
   "input": {
     "question": "What is 2+2?",
@@ -113,7 +113,7 @@ print(res.json())
 ```
 
 ```bash cURL
-curl -X POST "https://api.keywordsai.co/api/datasets/{dataset_id}/logs/" \
+curl -X POST "https://api.respan.ai/api/datasets/{dataset_id}/logs/" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -140,14 +140,14 @@ import requests
 API_KEY = "YOUR_API_KEY"
 dataset_id = "YOUR_DATASET_ID"
 
-url = f"https://api.keywordsai.co/api/datasets/{dataset_id}/logs/list/?page=1&page_size=10"
+url = f"https://api.respan.ai/api/datasets/{dataset_id}/logs/list/?page=1&page_size=10"
 res = requests.get(url, headers={"Authorization": f"Bearer {API_KEY}"})
 res.raise_for_status()
 print(res.json())
 ```
 
 ```bash cURL
-curl -X GET "https://api.keywordsai.co/api/datasets/{dataset_id}/logs/list/?page=1&page_size=10" \
+curl -X GET "https://api.respan.ai/api/datasets/{dataset_id}/logs/list/?page=1&page_size=10" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -167,7 +167,7 @@ import requests
 API_KEY = "YOUR_API_KEY"
 dataset_id = "YOUR_DATASET_ID"
 
-url = f"https://api.keywordsai.co/api/datasets/{dataset_id}/eval-reports/create"
+url = f"https://api.respan.ai/api/datasets/{dataset_id}/eval-reports/create"
 payload = {"evaluator_slugs": ["char_count_eval"]}
 
 res = requests.post(url, headers={"Authorization": f"Bearer {API_KEY}"}, json=payload)
@@ -176,7 +176,7 @@ print(res.json())
 ```
 
 ```bash cURL
-curl -X POST "https://api.keywordsai.co/api/datasets/{dataset_id}/eval-reports/create" \
+curl -X POST "https://api.respan.ai/api/datasets/{dataset_id}/eval-reports/create" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"evaluator_slugs":["char_count_eval"]}'
@@ -198,14 +198,14 @@ import requests
 API_KEY = "YOUR_API_KEY"
 dataset_id = "YOUR_DATASET_ID"
 
-url = f"https://api.keywordsai.co/api/datasets/{dataset_id}/eval-reports/list/"
+url = f"https://api.respan.ai/api/datasets/{dataset_id}/eval-reports/list/"
 res = requests.get(url, headers={"Authorization": f"Bearer {API_KEY}"})
 res.raise_for_status()
 print(res.json())
 ```
 
 ```bash cURL
-curl -X GET "https://api.keywordsai.co/api/datasets/{dataset_id}/eval-reports/list/" \
+curl -X GET "https://api.respan.ai/api/datasets/{dataset_id}/eval-reports/list/" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -231,7 +231,7 @@ Reference: [Create dataset with specified logs](/api-endpoints/evaluate/datasets
 import requests
 
 API_KEY = "YOUR_API_KEY"
-url = "https://api.keywordsai.co/api/datasets/"
+url = "https://api.respan.ai/api/datasets/"
 
 payload = {
   "name": "Dataset from existing logs",
@@ -251,7 +251,7 @@ print(res.json())
 ```
 
 ```bash cURL
-curl -X POST "https://api.keywordsai.co/api/datasets/" \
+curl -X POST "https://api.respan.ai/api/datasets/" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -280,7 +280,7 @@ import requests
 API_KEY = "YOUR_API_KEY"
 dataset_id = "YOUR_DATASET_ID"
 
-url = f"https://api.keywordsai.co/api/datasets/{dataset_id}/logs/bulk/"
+url = f"https://api.respan.ai/api/datasets/{dataset_id}/logs/bulk/"
 payload = {
   "start_time": "2025-07-01T00:00:00Z",
   "end_time": "2025-07-31T23:59:59Z",
@@ -294,7 +294,7 @@ print(res.json())
 ```
 
 ```bash cURL
-curl -X POST "https://api.keywordsai.co/api/datasets/{dataset_id}/logs/bulk/" \
+curl -X POST "https://api.respan.ai/api/datasets/{dataset_id}/logs/bulk/" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -332,7 +332,7 @@ import requests
 API_KEY = "YOUR_API_KEY"
 dataset_id = "YOUR_DATASET_ID"
 
-url = f"https://api.keywordsai.co/api/datasets/{dataset_id}/"
+url = f"https://api.respan.ai/api/datasets/{dataset_id}/"
 payload = {"name": "Renamed dataset", "description": "Updated via API"}
 
 res = requests.patch(url, headers={"Authorization": f"Bearer {API_KEY}"}, json=payload)
@@ -341,7 +341,7 @@ print(res.json())
 ```
 
 ```bash cURL
-curl -X PATCH "https://api.keywordsai.co/api/datasets/{dataset_id}/" \
+curl -X PATCH "https://api.respan.ai/api/datasets/{dataset_id}/" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"name":"Renamed dataset","description":"Updated via API"}'
@@ -361,7 +361,7 @@ import requests
 API_KEY = "YOUR_API_KEY"
 dataset_id = "YOUR_DATASET_ID"
 
-url = f"https://api.keywordsai.co/api/datasets/{dataset_id}/logs/delete/"
+url = f"https://api.respan.ai/api/datasets/{dataset_id}/logs/delete/"
 payload = {"filters": {"metadata.custom_identifier": "dataset-tutorial-log"}}
 
 res = requests.delete(url, headers={"Authorization": f"Bearer {API_KEY}"}, json=payload)
@@ -370,7 +370,7 @@ print(res.json())
 ```
 
 ```bash cURL
-curl -X DELETE "https://api.keywordsai.co/api/datasets/{dataset_id}/logs/delete/" \
+curl -X DELETE "https://api.respan.ai/api/datasets/{dataset_id}/logs/delete/" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"filters":{"metadata.custom_identifier":"dataset-tutorial-log"}}'
@@ -390,13 +390,13 @@ import requests
 API_KEY = "YOUR_API_KEY"
 dataset_id = "YOUR_DATASET_ID"
 
-url = f"https://api.keywordsai.co/api/datasets/{dataset_id}/"
+url = f"https://api.respan.ai/api/datasets/{dataset_id}/"
 res = requests.delete(url, headers={"Authorization": f"Bearer {API_KEY}"})
 print(res.status_code)  # typically 204
 ```
 
 ```bash cURL
-curl -X DELETE "https://api.keywordsai.co/api/datasets/{dataset_id}/" \
+curl -X DELETE "https://api.respan.ai/api/datasets/{dataset_id}/" \
   -H "Authorization: Bearer YOUR_API_KEY"
 ```
 

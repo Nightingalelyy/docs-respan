@@ -15,8 +15,8 @@ You can either use the `prompt_caching` feature through the LLM proxy or log tho
 import anthropic
 
 client = anthropic.Anthropic(
-    base_url="https://api.keywordsai.co/api/anthropic/",
-    api_key="Your_Keywords_AI_API_Key",
+    base_url="https://api.respan.ai/api/anthropic/",
+    api_key="Your_Respan_API_Key",
 )
 
 message = client.messages.create(
@@ -45,8 +45,8 @@ print(message.content)
 import Anthropic from "@anthropic-ai/sdk";
 
 const anthropic = new Anthropic({
-  baseUrl: "https://api.keywordsai.co/api/anthropic/",  
-  apiKey: 'YOUR_KEYWORDS_AI_API_KEY',
+  baseUrl: "https://api.respan.ai/api/anthropic/",  
+  apiKey: 'YOUR_RESPAN_API_KEY',
 });
 
 const msg = await anthropic.messages.create({
@@ -82,7 +82,7 @@ console.log(msg);
 import requests
 def demo_call(input, 
               model="claude-3-5-sonnet-20240620",
-              token="YOUR_KEYWORDS_AI_API_KEY",
+              token="YOUR_RESPAN_API_KEY",
               ):
     headers = {
         'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ def demo_call(input,
 
     }
 
-    response = requests.post('https://api.keywordsai.co/api/chat/completions', headers=headers, json=data)
+    response = requests.post('https://api.respan.ai/api/chat/completions', headers=headers, json=data)
     return response
 
 messages = "what are the key terms and conditions in this agreement?'"
@@ -128,8 +128,8 @@ If you want to log the LLM requests that are cached, you can use the Logging API
 import requests
 import os
 
-API_KEY = os.getenv("KEYWORDSAI_API_KEY_TEST")
-BASE_URL = os.getenv("KEYWORDSAI_BASE_URL", "http://localhost:8000/api")
+API_KEY = os.getenv("RESPAN_API_KEY_TEST")
+BASE_URL = os.getenv("RESPAN_BASE_URL", "http://localhost:8000/api")
 url = f"{BASE_URL}/request-logs/create"
 headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
 payload = {

@@ -6,18 +6,18 @@ description: "Explicitly control what appears as a span’s input/output in the 
 Use OpenTelemetry AI semconv attributes on the current span, inside your `@workflow`-decorated function.
 
 - Set `SpanAttributes.TRACELOOP_ENTITY_INPUT` and/or `SpanAttributes.TRACELOOP_ENTITY_OUTPUT`.
-- Pass these via the `attributes` argument of `update_current_span` (not `keywordsai_params`).
+- Pass these via the `attributes` argument of `update_current_span` (not `respan_params`).
 - Values must be JSON‑serializable strings, so use `json.dumps(...)`.
-- Keep any custom metadata in `keywordsai_params["metadata"]` as needed.
+- Keep any custom metadata in `respan_params["metadata"]` as needed.
 
 <CodeGroup>
 ```python Python
 import json
 from opentelemetry.semconv_ai import SpanAttributes
-from keywordsai_tracing.main import KeywordsAITelemetry
-from keywordsai_tracing.decorators import workflow
+from respan_tracing.main import RespanTelemetry
+from respan_tracing.decorators import workflow
 
-k_tl = KeywordsAITelemetry()
+k_tl = RespanTelemetry()
 client = k_tl.get_client()
 
 @workflow(name="update_attributes_test")
@@ -36,7 +36,7 @@ def update_attributes_test(input: str):
         attributes=force_set_attributes,
         name="update_attributes_test",  # optionally rename the current span
         # Keep metadata here if you need it in the trace
-        keywordsai_params={"metadata": {"test": "test"}},
+        respan_params={"metadata": {"test": "test"}},
     )
 
     some_desired_output = "Some desired output"
@@ -48,5 +48,5 @@ if __name__ == "__main__":
 </CodeGroup>
 
 <Note>
-Use `update_current_span(attributes=...)` to override the span’s displayed input/output. `keywordsai_params` do not map `input` or `output` to span attributes; they’re for metadata and KeywordsAI-specific options. After overriding, the trace view will display your custom values for the selected span.
+Use `update_current_span(attributes=...)` to override the span’s displayed input/output. `respan_params` do not map `input` or `output` to span attributes; they’re for metadata and Respan-specific options. After overriding, the trace view will display your custom values for the selected span.
 </Note>
