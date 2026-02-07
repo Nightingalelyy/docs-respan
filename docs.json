@@ -265,7 +265,9 @@
               "/integrations/development-frameworks/tracing/langfuse",
               "/integrations/development-frameworks/tracing/haystack",
               "/integrations/development-frameworks/tracing/baml",
-              "/integrations/development-frameworks/tracing/instructor"
+              "/integrations/development-frameworks/tracing/instructor",
+              "/integrations/development-frameworks/tracing/agno",
+              "/integrations/development-frameworks/tracing/braintrust"
             ]
           },
           {
