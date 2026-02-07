@@ -260,7 +260,7 @@ curl -X POST "https://api.respan.ai/api/chat/completions" \
 
 <ParamField body="model" type="string" required={true}>
   Specify which model to use. See the list of model
-  [here](/integration/overview)
+  [here](/integrations/overview)
 
 <Note> This parameter will be overridden by the `loadbalance_models` parameter.</Note>
 
@@ -493,7 +493,7 @@ You can pass in your customer's credentials for [supported providers](/documenta
 <ParamField body="credential_override" type="object">
 One-off credential overrides. Instead of using what is uploaded for each provider, this targets credentials for individual models. 
 
-Go to [provider page](/integration/overview) to see how to add your own credentials and override them for a specific model.
+Go to [provider page](/integrations/overview) to see how to add your own credentials and override them for a specific model.
   <Accordion title="Example">
 ```json
 "credential_override": {
@@ -679,7 +679,7 @@ We understand that you may have a custom name for your Azure deployment. Respan 
   Specify the list of models for the Respan LLM router to choose between. 
   If not specified,{" "}
   <strong>all models</strong> will be used. See the list of models
-  [here](/integration/overview)
+  [here](/integrations/overview)
 
 If only one model is specified, it will be treated as if the `model` parameter is used and the router will not trigger.
 
@@ -688,14 +688,14 @@ When the `model` parameter is used, the router will not trigger, and this parame
 </ParamField>
 
 <ParamField body="exclude_providers" type="array" default={[]}>
-  The list of providers to exclude from the LLM router's selection. All models under the provider will be excluded. See the list of providers [here](/integration/overview)
+  The list of providers to exclude from the LLM router's selection. All models under the provider will be excluded. See the list of providers [here](/integrations/overview)
 
 This only excludes providers in the LLM router, if `model` parameter takes precedence over this parameter, and`fallback_models` and [safety net](/documentation/products/notifications/subscribe_alerts) will still use the excluded models to catch failures.
 
 </ParamField>
 
 <ParamField body="exclude_models" type="array" default={[]}>
-The list of models to exclude from the LLM router's selection. See the list of models [here](/integration/overview)
+The list of models to exclude from the LLM router's selection. See the list of models [here](/integrations/overview)
 
 This only excludes models in the LLM router, if `model` parameter takes precedence over this parameter, and`fallback_models` and [safety net](/documentation/products/notifications/subscribe_alerts) will still use the excluded models to catch failures.
 

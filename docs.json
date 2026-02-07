@@ -44,7 +44,7 @@
               {
                 "group": "Observability",
                 "pages": [
-                  "/documentation/products/dashboard/metrics",
+                  "/documentation/products/dashboard/Metrics",
                   "/documentation/products/dashboard/views",
                   {
                     "group": "Logs",
